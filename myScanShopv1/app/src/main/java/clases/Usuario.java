@@ -3,9 +3,9 @@ package clases;
 public class Usuario {
 
     protected String nombre;
-    protected int id;
+    protected String id;
 
-    public Usuario ( String nombre , int id ) {
+    public Usuario ( String nombre , String id ) {
         this.nombre = nombre;
         this.id = id;
     }
@@ -18,11 +18,13 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public int getId () {
+    public String getId () {
+
+
         return id;
     }
 
-    public void setId ( int id ) {
+    public void setId ( String id ) {
         this.id = id;
     }
 }
