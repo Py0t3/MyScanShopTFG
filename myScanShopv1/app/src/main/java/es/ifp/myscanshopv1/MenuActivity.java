@@ -51,5 +51,13 @@ public class MenuActivity extends AppCompatActivity {
             }
         } );
 
+        botonUsuarios.setOnClickListener ( new View.OnClickListener ( ) {
+            @Override
+            public void onClick ( View view ) {
+                startActivity ( new Intent ( MenuActivity.this, UsuariosActivity.class ) );
+                finish ();
+            }
+        } );
+
     }
 }
