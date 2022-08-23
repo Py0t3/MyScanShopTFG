@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundDefaultTFG"
+    tools:context=".InventarioActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_inventario"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:background="@color/myScanShopToolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Productos"
+        app:titleMarginStart="90dp"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
+        app:titleTextColor="#566263" />
+
+    <ImageButton
+        android:id="@+id/boton_add_inventario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#0B0A0A"
+        android:foregroundTint="#020202"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar_inventario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <ListView
+        android:id="@+id/listViewProducto_inventario"
+        android:layout_width="391dp"
+        android:layout_height="594dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:cacheColorHint="@color/backgroundDefaultTFG"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_inventario" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    app:circularflow_radiusInDP="@null"
+    app:guidelineUseRtl="false"
+    tools:context=".AddManualActivity">
+
+    <TextView
+        android:id="@+id/labelPrecio_add"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="Precio:"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cajaNombre_add" />
+
+    <TextView
+        android:id="@+id/labelCantidad_addInventario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Código de Barras:"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelEuros_add" />
+
+    <TextView
+        android:id="@+id/labelDescripcion_add"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="Descripción:"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cajaCodigo_addInventario" />
+
+    <EditText
+        android:id="@+id/cajaNombre_add"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="#858484"
+        android:ems="10"
+        android:hint="Nombre del Producto"
+        android:inputType="textShortMessage|textPersonName|text"
+        android:textColor="#393838"
+        android:textColorHint="#858484"
+        android:textSize="20sp"
+        app:guidelineUseRtl="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_addInventario" />
+
+    <EditText
+        android:id="@+id/cajaPrecio_add"
+        android:layout_width="205dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#858484"
+        android:ems="10"
+        android:hint="0.0"
+        android:inputType="number|numberDecimal"
+        android:shadowColor="#858484"
+        android:textAlignment="textEnd"
+        android:textColor="#131313"
+        android:textColorHint="#858484"
+        android:textColorLink="#858484"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelPrecio_add" />
+
+    <EditText
+        android:id="@+id/cajaCodigo_addInventario"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FFFFFF"
+        android:ems="10"
+        android:hint="0000000000000"
+        android:inputType="number"
+        android:textAlignment="textStart"
+        android:textColor="#494949"
+        android:textColorHint="#858484"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelCantidad_addInventario" />
+
+    <TextView
+        android:id="@+id/labelEuros_add"
+        android:layout_width="106dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="EUROS"
+        android:textAlignment="viewStart"
+        android:textColor="#555555"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/cajaPrecio_add"
+        app:layout_constraintTop_toBottomOf="@+id/labelPrecio_add" />
+
+
+    <EditText
+        android:id="@+id/cajaDescripcion_add"
+        android:layout_width="361dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="#858484"
+        android:ems="10"
+        android:inputType="textLongMessage|textPersonName"
+        android:textColor="#3E3E3E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelDescripcion_add" />
+
+    <Button
+        android:id="@+id/botonGuardar_add"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:text="Guardar"
+        android:textSize="20sp"
+        app:cornerRadius="@dimen/cardview_compat_inset_shadow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cajaDescripcion_add" />
+
+    <Button
+        android:id="@+id/botonImagen_addInventario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="32dp"
+        android:text="añadir imagen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/botonCancel_addInventario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:text="Cancelar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonGuardar_add" />
+
+    <ImageView
+        android:id="@+id/image_addInventario"
+        android:layout_width="98dp"
+        android:layout_height="91dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/cajaNombre_add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

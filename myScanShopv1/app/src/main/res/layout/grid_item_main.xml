@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:backgroundTint="#2B2A2A"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="2dp"
+    android:scrollbarSize="2dp">
+
+    <ImageView
+        android:id="@+id/imagenGrid_start"
+        android:layout_width="115dp"
+        android:layout_height="115dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:cropToPadding="true"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/labelgrid_start"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="4dp"
+        android:background="#BE393838"
+        android:gravity="center_horizontal"
+        android:maxLines="1"
+        android:padding="0dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imagenGrid_start"
+        app:layout_constraintStart_toStartOf="@+id/imagenGrid_start" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
