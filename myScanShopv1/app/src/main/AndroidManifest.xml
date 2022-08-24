@@ -42,7 +42,7 @@
             android:name=".MenuActivity"
             android:exported="false" />
         <activity
-            android:name=".Splash"
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
