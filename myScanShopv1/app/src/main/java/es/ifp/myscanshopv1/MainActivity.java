@@ -14,6 +14,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import adaptadores.AdaptadorProductos;
@@ -24,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected Toolbar toolbar;
     protected TextView datosText;
+    protected TextView labelUser;
     protected Button botonScan;
     protected Button botonAdd;
     protected Button botonAddCesta;
@@ -40,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     protected String codigoBarras;
     protected String nombre;
     protected String productoManual;
+    protected String url = "http://192.168.1.38/web_service/usuario_sesion.php";
 
 
 
@@ -61,12 +73,15 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         datosText = (TextView )findViewById ( R.id.labelDatos_main );
+        labelUser = (TextView )findViewById ( R.id.labelUser_toolbar );
         botonScan = (Button )findViewById ( R.id.botonScan_main );
         botonAdd = (Button )findViewById ( R.id.botonAddd_main );
         botonCaja = (Button )findViewById ( R.id.botonCaja_main );
         botonAddCesta = (Button )findViewById ( R.id.botonAddCesta_main );
         botonBuscar = (Button )findViewById ( R.id.botonBuscar_main );
         labelDatos = (TextView )findViewById ( R.id.labelDatos_main );
+
+
 
         db= new DataBaseSQLite ( this );
 
@@ -253,6 +268,7 @@ public class MainActivity extends AppCompatActivity {
 
         return euros;
    }
+
 
 
 }
