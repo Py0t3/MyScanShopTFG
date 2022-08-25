@@ -40,7 +40,8 @@ public class AdaptadorProductos extends BaseAdapter {
     @Override
     public long getItemId(int position) {
 
-        return getItem(position).getIdentificador ();
+        int id = Integer.parseInt ( getItem(position).getIdentificador () );
+        return id;
     }
 
     @Override
@@ -52,8 +53,8 @@ public class AdaptadorProductos extends BaseAdapter {
             view = inflater.inflate( R.layout.grid_item_main, viewGroup, false);
         }
 
-        ImageView imagenGrid = (ImageView) view.findViewById(R.id.imagenGrid_start);
-        TextView nombreProdcuto = (TextView) view.findViewById(R.id.labelgrid_start);
+        ImageView imagenGrid = (ImageView) view.findViewById(R.id.imagenGrid );
+        TextView nombreProdcuto = (TextView) view.findViewById(R.id.labelgrid );
 
         final Producto item = getItem(position);
        //carga imagen desde url usando lib picasso

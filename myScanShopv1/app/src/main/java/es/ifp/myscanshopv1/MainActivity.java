@@ -1,6 +1,7 @@
 package es.ifp.myscanshopv1;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -33,18 +35,13 @@ import clases.Producto;
 public class MainActivity extends AppCompatActivity {
 
     protected Toolbar toolbar;
-    protected TextView datosText;
     protected TextView labelUser;
     protected Button botonScan;
     protected Button botonAdd;
-    protected Button botonAddCesta;
     protected Button botonCaja;
     protected Button botonBuscar;
     protected Intent pasarPantalla;
     protected Bundle paquete;
-
-    protected TextView labelDatos;
-    protected String contenidoLabel="";
     protected float euros = 0.0f;
     protected String eurosPaquete="";
     protected String[] partes;
@@ -73,21 +70,20 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar ().setDisplayShowTitleEnabled ( false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        datosText = (TextView )findViewById ( R.id.labelDatos_main );
-        labelUser = (TextView )findViewById ( R.id.labelUser_toolbar );
+        labelUser = (TextView )findViewById ( R.id.labelUser);
         botonScan = (Button )findViewById ( R.id.botonScan_main );
         botonAdd = (Button )findViewById ( R.id.botonAddd_main );
         botonCaja = (Button )findViewById ( R.id.botonCaja_main );
-        botonAddCesta = (Button )findViewById ( R.id.botonAddCesta_main );
+
         botonBuscar = (Button )findViewById ( R.id.botonBuscar_main );
-        labelDatos = (TextView )findViewById ( R.id.labelDatos_main );
+
         grid = (GridView )findViewById ( R.id.gridList_main );
 
 
         paquete=getIntent().getExtras();
         if(paquete!=null) {
             nombreUsuario = paquete.getString ( "nombreUsuario" );
-            labelUser.setText ( nombreUsuario );
+            labelUser.setText ( "Usuario: " + nombreUsuario );
         }
         adapter = new AdapterGrid ( this, productoArrayList );
         grid.setAdapter ( adapter );
@@ -96,15 +92,31 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Selección de producto desde la lista
-       /* grid.setOnItemClickListener ( new AdapterView.OnItemClickListener ( ) {
+        grid.setOnItemClickListener ( new AdapterView.OnItemClickListener ( ) {
             @Override
             public void onItemClick ( AdapterView<?> adapterView , View view , int i , long l ) {
 
                 Producto p= ( Producto ) adapterView.getItemAtPosition ( i );
-                labelDatos.setText ( p.getNombre () + "\n" + p.getPrecio ()+ " €" +"\n" +  p.getDescripcion () );
+                AlertDialog.Builder builder= new AlertDialog.Builder ( MainActivity.this );
+                builder.setTitle ( p.getNombre ());
+                builder.setMessage ( "P.V.P: " + p.getPrecio () + " EUROS\nDescripcion: \n" + p.getDescripcion () );
+                builder.setPositiveButton ( "AÑADIR A LA CESTA" , new DialogInterface.OnClickListener ( ) {
+                    @Override
+                    public void onClick ( DialogInterface dialogInterface , int i ) {
+
+
+                    }
+                } );
+
+                builder.setNeutralButton ( "Cancelar", null );
+                AlertDialog dialog= builder.create();
+                builder.show();
+
 
             }
-        } );*/
+
+
+        } );
 
 
         botonBuscar.setOnClickListener ( new View.OnClickListener ( ) {

@@ -10,7 +10,7 @@ public class Producto {
     private String descripcion;
 
 
-    public Producto ( String id,String nombre, String precio, String urlImagen, String codigoBarras, String descripcion){
+    public Producto ( String id,String urlImagen,String nombre, String precio, String codigoBarras, String descripcion){
 
         this.id =id;
         this.nombre = nombre;
@@ -20,29 +20,6 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-
-    public Producto ( String nombre,String precio, String urlImagen, String descripcion)
-    {
-
-        this.nombre = nombre;
-        this.precio = precio;
-        this.urlImagen = urlImagen;
-        this.descripcion = descripcion;
-    }
-
-    public Producto ( String nombre, String precio){
-
-        this.nombre = nombre;
-        this.precio = precio;
-    }
-    public Producto ( String id, String nombre, String precio){
-
-        this.id= id;
-        this.nombre = nombre;
-        this.precio = precio;
-
-
-    }
     public String getNombre(){
 
         return nombre;
@@ -84,8 +61,8 @@ public class Producto {
         this.urlImagen = urlImagen;
     }
 
-    public int getIdentificador() {
-        return nombre.hashCode();
+    public String getIdentificador() {
+        return id;
     }
 
     public String getPrecio () {

@@ -41,7 +41,8 @@ public class AdaptadorInventario extends BaseAdapter {
     @Override
     public long getItemId(int position) {
 
-        return getItem(position).getIdentificador ();
+        int id= Integer.parseInt ( getItem(position).getIdentificador () );
+        return id;
     }
 
     @Override

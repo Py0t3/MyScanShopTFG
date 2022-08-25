@@ -7,6 +7,8 @@
     android:background="#F8F4F4"
     tools:context=".MainActivity">
 
+
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
@@ -25,16 +27,16 @@
 
     <TextView
         android:id="@+id/labelUser_toolbar"
-        android:layout_width="315dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:contextClickable="true"
-        android:text="Vendedor: MyScanShop"
+        android:text="MyScanShop"
         android:textAlignment="center"
         android:textColor="#6A6A6A"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,36 +46,30 @@
 
     <GridView
         android:id="@+id/gridList_main"
-        android:layout_width="374dp"
-        android:layout_height="340dp"
+        style="@android:style/Widget.Material.GridView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
         android:background="#050505"
-        android:backgroundTint="#B7DCD9"
+        android:backgroundTint="#D1DFDE"
         android:cacheColorHint="#777575"
         android:numColumns="3"
-        app:barrierMargin="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
 
-    <Button
-        android:id="@+id/botonCaja_main"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/press_button"
-        android:text="Total: 0.0 Euros"
-        android:textColor="#F5F8F6"
-        android:textSize="20sp"
+        android:verticalSpacing="8dp"
+        app:barrierMargin="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/botonCaja_main"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-        tools:ignore="TextContrastCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+
+    </GridView>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -93,7 +89,6 @@
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
             android:layout_marginTop="0dp"
-            android:background="@drawable/press_button"
             android:backgroundTint="@null"
             android:textColor="#FBFBFB"
             app:icon="@android:drawable/ic_menu_search"
@@ -107,7 +102,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/press_button"
             android:backgroundTint="@null"
             android:textColor="#FBFBFB"
             app:icon="@android:drawable/ic_menu_edit"
@@ -120,7 +114,6 @@
             android:layout_height="match_parent"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/press_button"
             android:backgroundTint="@color/myScanShop"
             android:hapticFeedbackEnabled="false"
             android:textColor="#FFFFFF"
@@ -130,40 +123,30 @@
             app:iconTint="#DAD7D7" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
+    <TextView
+        android:id="@+id/labelUser"
         android:layout_width="0dp"
-        android:layout_height="89dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="User: MyScanShop"
+        android:textColor="#323131"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridList_main">
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/labelDatos_main"
-            android:layout_width="246dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
-            android:background="#F4EC95"
-            android:paddingStart="5dp"
-            android:paddingTop="10dp"
-            android:textColor="#000000" />
-
-        <Button
-            android:id="@+id/botonAddCesta_main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="0dp"
-            android:backgroundTint="@color/myScanShop"
-            android:text="añadir a la cesta" />
-    </LinearLayout>
-
+    <Button
+        android:id="@+id/botonCaja_main"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/press_button"
+        android:text="TOTAL: 0.00 EUROS"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/labelUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
