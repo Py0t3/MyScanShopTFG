@@ -33,7 +33,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import adaptadores.AdaptadorCaja;
-import clases.DataBaseSQLite;
 import clases.Producto;
 
 public class CajaActivity extends AppCompatActivity {
@@ -51,7 +50,7 @@ public class CajaActivity extends AppCompatActivity {
     protected String totalEuros = "";
     private Bundle paquete;
     protected Producto p;
-    protected DataBaseSQLite db;
+
     protected String euros="";
 
     String tituloText = "Factura";
@@ -72,7 +71,7 @@ public class CajaActivity extends AppCompatActivity {
         lista1 = (ListView ) findViewById ( R.id.lista_caja );
         totalFactura = (TextView )findViewById ( R.id.totalFactura_caja ) ;
 
-        db = new DataBaseSQLite ( this );
+
         paquete=getIntent().getExtras();
         if(paquete!=null)
         {
@@ -88,12 +87,6 @@ public class CajaActivity extends AppCompatActivity {
         listaTotal = new ArrayList<> (  );
 
         Toast.makeText ( this , ""+listaCaja.size () , Toast.LENGTH_SHORT ).show ( );
-        for(int i=0; i< listaCaja.size () ; i++)
-           {
-               Producto p = db.getNote ( "'"+listaCaja.get (i) +"'");
-
-               listaTotal.add ( p );
-           }
 
         adaptador= new AdaptadorCaja ( this, listaTotal);
         lista1.setAdapter ( adaptador );

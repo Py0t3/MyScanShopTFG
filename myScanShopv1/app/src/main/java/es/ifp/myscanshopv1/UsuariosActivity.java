@@ -78,10 +78,10 @@ public class UsuariosActivity extends AppCompatActivity {
                             String nombre = object.getString ( "nombre" );
                             String puesto = object.getString ( "puesto" );
 
-                            Usuario u = new Usuario ( id , nombre ,puesto);
+                          /*  Usuario u = new Usuario ( id , nombre ,puesto);
                             listaUsuarios.add ( u );
                             adaptador.notifyDataSetChanged ( );
-                            Toast.makeText ( UsuariosActivity.this , u.getNombre () , Toast.LENGTH_SHORT ).show ( );
+                            Toast.makeText ( UsuariosActivity.this , u.getNombre () , Toast.LENGTH_SHORT ).show ( );*/
                         }
 
 

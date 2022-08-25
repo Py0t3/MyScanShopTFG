@@ -1,6 +1,8 @@
 package es.ifp.myscanshopv1;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,13 +27,17 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import clases.Producto;
 import clases.Usuario;
 
 public class Login extends AppCompatActivity {
 
     protected EditText cajaUser, cajaPass;
     protected Button botonEnter;
-    protected String url = "http://192.168.1.38/web_service/checklogin.php";
+    protected String nombre="";
+    protected String pass="";
+    protected String url = "https://vaticinal-center.000webhostapp.com/checklogin.php";
+    protected Intent intent;
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
@@ -50,38 +56,54 @@ public class Login extends AppCompatActivity {
         cajaPass = ( EditText ) findViewById ( R.id.cajaPass_login );
         botonEnter = ( Button ) findViewById ( R.id.botonEnter_login );
 
+        recuperarPreferencias ();
+
         botonEnter.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick ( View view ) {
 
-                String nombre = cajaUser.getText ( ).toString ( );
-                String pass = cajaPass.getText ( ).toString ( );
+                nombre = cajaUser.getText ( ).toString ( );
+                pass = cajaPass.getText ( ).toString ( );
 
                 StringRequest stringRequest = new StringRequest ( Request.Method.POST , url , new Response.Listener<String> ( ) {
                     @Override
                     public void onResponse ( String response ) {
 
+
                         try {
                             JSONObject jsonObject = new JSONObject ( response );
                             String exito = jsonObject.getString ( "exito" );
 
-
                             if (exito.equals ( "1" )) {
+                                JSONArray jsonArray = jsonObject.getJSONArray ( ("datos") );
+                                for (int i = 0; i < jsonArray.length ( ); i++) {
 
+                                    JSONObject object = jsonArray.getJSONObject ( i );
 
-                                startActivity ( new Intent ( Login.this , MenuActivity.class ) );
+                                    String id = object.getString ( "id" );
+                                    String user = object.getString ( "user" );
+                                    String pass = object.getString ( "password" );
+                                    String nombre = object.getString ( "nombre" );
+                                    String puesto = object.getString ( "puesto" );
+
+                                    Usuario u = new Usuario ( id, user, pass, nombre, puesto );
+                                    String nombreUsuario = u.getNombre ();
+                                    intent = new Intent ( Login.this, MenuActivity.class );
+                                    intent.putExtra("nombreUsuario",nombreUsuario);
+                                    Toast.makeText ( Login.this , "Hola: " + nombreUsuario , Toast.LENGTH_SHORT ).show ( );
+
+                                }
+
+                                startActivity ( intent  );
                                 finish ( );
-
 
                             } else {
                                 Toast.makeText ( Login.this , "Sin registros" , Toast.LENGTH_SHORT ).show ( );
                             }
 
-
                         } catch (JSONException e) {
                             e.printStackTrace ( );
                         }
-
 
                     }
                 } , new Response.ErrorListener ( ) {
@@ -104,7 +126,6 @@ public class Login extends AppCompatActivity {
                     }
 
                 };
-
         /*
          Estas dos línes son importante. Sin RequestQueue no hace nada
          */
@@ -113,8 +134,22 @@ public class Login extends AppCompatActivity {
 
 
             }
-
-
         });
     }
+    private void guardarPreferencias(){
+
+        SharedPreferences preferences = getSharedPreferences ( "preferenciLogin", Context.MODE_PRIVATE );
+        SharedPreferences.Editor editor= preferences.edit ();
+        editor.putString ( "usuario", nombre );
+        editor.putString ( "pass", pass );
+        editor.putBoolean ( "sesion", true );
+        editor.commit ();
+    }
+    private void recuperarPreferencias(){
+        SharedPreferences preferences = getSharedPreferences ( "preferenciLogin", Context.MODE_PRIVATE );
+        cajaUser.setText ( preferences.getString("usuario","") );
+        cajaPass.setText ( preferences.getString("pass","") );
+
+    }
+
 }

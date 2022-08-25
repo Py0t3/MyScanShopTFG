@@ -11,9 +11,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.security.PrivateKey;
-
-import clases.DataBaseSQLite;
 import clases.Producto;
 
 public class InfoProductoActivity extends AppCompatActivity {
@@ -27,7 +24,7 @@ public class InfoProductoActivity extends AppCompatActivity {
     protected Button botonVolver;
     private Intent pasarPAntalla;
     private Bundle paquete;
-    protected DataBaseSQLite db;
+
     protected String urlImagen;
     protected String nombre;
     protected int id;
@@ -42,7 +39,7 @@ public class InfoProductoActivity extends AppCompatActivity {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_info_producto );
 
-        db = new DataBaseSQLite ( this );
+
         imagen = (ImageView) findViewById ( R.id.imagen_info );
         labelNombre = (TextView ) findViewById ( R.id.labelNombre_info );
         labelID = (TextView ) findViewById ( R.id.labelID_info );
@@ -56,7 +53,7 @@ public class InfoProductoActivity extends AppCompatActivity {
         if(paquete != null)
         {
             nombre = paquete.getString ( "NOMBRE" );
-            p = db.getNote ( "'"+ nombre + "'" );
+
             Picasso.get().load(p.getUrlImagen ()).error ( R.drawable.logoxl ).into(imagen);
             labelNombre.setText ( p.getNombre () );
             labelID.setText ( "ID: "+p.getIdentificador () );

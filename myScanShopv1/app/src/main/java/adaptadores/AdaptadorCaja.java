@@ -57,7 +57,7 @@ public class AdaptadorCaja extends BaseAdapter {
 
         final Producto item = getItem(position);
         nombreProducto.setText(item.getNombre());
-        precioProducto.setText ( Float.toString ( item.getPrecio () ));
+        precioProducto.setText ( item.getPrecio () );
 
         return view;
     }

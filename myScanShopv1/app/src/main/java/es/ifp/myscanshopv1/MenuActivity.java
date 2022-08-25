@@ -19,6 +19,8 @@ public class MenuActivity extends AppCompatActivity {
     protected Button botonInventario;
     protected Button botonClientes;
     protected Button botonUsuarios;
+    protected Bundle paquete;
+    protected String nombreUsuario;
 
 
     @Override
@@ -31,12 +33,17 @@ public class MenuActivity extends AppCompatActivity {
         botonClientes = (Button ) findViewById ( R.id.botonClientes_menuP );
         botonUsuarios = (Button ) findViewById ( R.id.botonUsuarios_menuP );
 
+        paquete=getIntent().getExtras();
+        if(paquete!=null) {
+            nombreUsuario = paquete.getString ( "nombreUsuario" );
+        }
 
        botonPdV.setOnClickListener ( new View.OnClickListener ( ) {
            @Override
            public void onClick ( View view ) {
 
-               pasarPantalla = new Intent ( MenuActivity.this, es.ifp.myscanshopv1.MainActivity.class );
+               pasarPantalla = new Intent ( MenuActivity.this, MainActivity.class );
+               pasarPantalla.putExtra ( "nombreUsuario", nombreUsuario );
                startActivity ( pasarPantalla );
                finish ();
            }

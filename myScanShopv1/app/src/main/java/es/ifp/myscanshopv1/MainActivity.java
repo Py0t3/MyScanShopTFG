@@ -1,10 +1,10 @@
 package es.ifp.myscanshopv1;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListAdapter;
@@ -21,13 +21,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import adaptadores.AdaptadorProductos;
-import clases.DataBaseSQLite;
+import adaptadores.AdapterGrid;
 import clases.Producto;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     protected Button botonBuscar;
     protected Intent pasarPantalla;
     protected Bundle paquete;
-    protected DataBaseSQLite db;
+
     protected TextView labelDatos;
     protected String contenidoLabel="";
     protected float euros = 0.0f;
@@ -50,18 +50,19 @@ public class MainActivity extends AppCompatActivity {
     protected String[] partes;
     protected String codigoBarras;
     protected String nombre;
+    protected String nombreUsuario;
     protected String productoManual;
-    protected String url = "http://192.168.1.38/web_service/usuario_sesion.php";
-
-
+    protected String url = "https://vaticinal-center.000webhostapp.com/mostrarProductos.php";
+    protected Producto p;
+    public static ArrayList<Producto> productoArrayList = new ArrayList<> (  );
+    protected AdapterGrid adapter;
 
     protected GridView grid;
     protected ArrayList<Producto> listaProductos;
     protected ArrayList<Producto> totalProductos;
     protected static ArrayList<String> cesta;
 
-    private ListAdapter adaptador;
-
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
         super.onCreate ( savedInstanceState );
@@ -80,70 +81,22 @@ public class MainActivity extends AppCompatActivity {
         botonAddCesta = (Button )findViewById ( R.id.botonAddCesta_main );
         botonBuscar = (Button )findViewById ( R.id.botonBuscar_main );
         labelDatos = (TextView )findViewById ( R.id.labelDatos_main );
+        grid = (GridView )findViewById ( R.id.gridList_main );
 
 
-
-        db= new DataBaseSQLite ( this );
-
-        paquete = getIntent ().getExtras ();
-
-        if(paquete !=null && paquete.getString ( "SCAN" )!=null)
-        {
-
-            codigoBarras= paquete.getString ( "SCAN" );
-
-            Producto p = db.getProductoByCode ( codigoBarras  );
-
-            labelDatos.setText ( p.getNombre () + "\n" + p.getPrecio ()+ " €" +"\n" +  p.getDescripcion () );
-
-
-            botonCaja.setText ( "TOTAL: " + ""+euros+ " EUROS" );
-
+        paquete=getIntent().getExtras();
+        if(paquete!=null) {
+            nombreUsuario = paquete.getString ( "nombreUsuario" );
+            labelUser.setText ( nombreUsuario );
         }
-        else if(paquete !=null && paquete.getString ( "NOMBRE" )!=null)
-        {
-            nombre = paquete.getString ( "NOMBRE" );
-            Producto p = db.getNote ( "'"+nombre + "'"  );
-
-            labelDatos.setText ( p.getNombre () + "\n" + p.getPrecio ()+ " €" +"\n" +  p.getDescripcion () );
+        adapter = new AdapterGrid ( this, productoArrayList );
+        grid.setAdapter ( adapter );
+        listarProductos ();
 
 
-            botonCaja.setText ( "TOTAL: " + ""+euros+ " EUROS" );
-        }
-        else if(paquete !=null && paquete.getString ( "PRODUCTO" )!=null)
-        {
-            productoManual = paquete.getString ( "PRODUCTO" ) ;
-            labelDatos.setText ( productoManual );
-        }
-
-        if(CajaActivity.listaCaja!=null)
-        {
-            cesta= CajaActivity.listaCaja;
-            euros = totalCompraEuros ();
-            botonCaja.setText ( "TOTAL: " +euros+ " EUROS" );
-            eurosPaquete = ""+euros;
-        }
-        else if(ScanActivity.cesta!=null)
-        {
-            cesta = ScanActivity.cesta;
-            euros = totalCompraEuros ();
-            botonCaja.setText ( "TOTAL: " +euros+ " EUROS" );
-            eurosPaquete = ""+euros;
-        }
-        else
-        {
-            cesta = new ArrayList<> (  );
-        }
-
-        totalProductos = new ArrayList<> (  );
-
-        grid= (GridView ) findViewById ( R.id.gridList_main );
-        listaProductos= getListaProductos ();
-        adaptador= new AdaptadorProductos ( this, listaProductos );
-        grid.setAdapter ( adaptador);
 
         //Selección de producto desde la lista
-        grid.setOnItemClickListener ( new AdapterView.OnItemClickListener ( ) {
+       /* grid.setOnItemClickListener ( new AdapterView.OnItemClickListener ( ) {
             @Override
             public void onItemClick ( AdapterView<?> adapterView , View view , int i , long l ) {
 
@@ -151,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 labelDatos.setText ( p.getNombre () + "\n" + p.getPrecio ()+ " €" +"\n" +  p.getDescripcion () );
 
             }
-        } );
+        } );*/
 
 
         botonBuscar.setOnClickListener ( new View.OnClickListener ( ) {
@@ -188,24 +141,7 @@ public class MainActivity extends AppCompatActivity {
             }
         } );
 
-        //Botón añadir a la cesta
-        botonAddCesta.setOnClickListener ( new View.OnClickListener ( ) {
-            @Override
-            public void onClick ( View view ) {
-                contenidoLabel = labelDatos.getText ().toString ();
 
-                if( contenidoLabel !="")
-                {
-
-                    partes = contenidoLabel.split ( "\n" );
-
-                    cesta.add ( partes[0] );
-                    euros = totalCompraEuros ();
-                    botonCaja.setText ( "TOTAL: " +euros+ " EUROS" );
-                    eurosPaquete = ""+euros;
-                }
-            }
-        } );
 
         //Botón Ir a Caja Total
         botonCaja.setOnClickListener ( new View.OnClickListener ( ) {
@@ -237,37 +173,63 @@ public class MainActivity extends AppCompatActivity {
         startActivity(pasarPantalla);
         finish();
     }
-    //Se crea el ArrayList provisional para ver que funciona la vista de gridview. Se sustituirá por consulta a base de datos
-    public ArrayList <Producto> getListaProductos () {
-        listaProductos=new ArrayList<> (  );
-        listaProductos = db.getAllNotes ();
 
-      return listaProductos;
-   }
-   public ArrayList<Producto> totalCompra(){
 
-        ArrayList<Producto> compra= new ArrayList<> (  );
+    public void listarProductos(){
 
-       for(int i=0; i< cesta.size () ; i++)
-       {
-           Producto p = db.getNote ( "'"+cesta.get (i) +"'");
+        StringRequest stringRequest = new StringRequest ( Request.Method.GET, url , new Response.Listener<String> ( ) {
+            @Override
+            public void onResponse ( String response ) {
+                productoArrayList.clear ( );
 
-           compra.add ( p );
-       }
+                try {
 
-       return compra;
-   }
-   public float totalCompraEuros(){
+                    JSONObject jsonObject = new JSONObject ( response );
+                    String exito = jsonObject.getString ( "exito" );
+                    JSONArray jsonArray = jsonObject.getJSONArray ( ("datos") );
 
-       euros=0.0f;
+                    if (exito.equals ( "1" )) {
+                        for (int i = 0; i < jsonArray.length ( ); i++) {
 
-        for(int i=0; i<totalCompra ().size () ; i++)
-        {
-            euros = euros + totalCompra ().get ( i ).getPrecio ();
-        }
+                            JSONObject object = jsonArray.getJSONObject ( i );
 
-        return euros;
-   }
+                            String id = object.getString ( "id" );
+                            String url_imagen = object.getString ( "url_imagen" );
+                            String nombre = object.getString ( "nombre" );
+                            String precio = object.getString ( "precio" );
+                            String codigo_barras = object.getString ( "codigo_barras" );
+                            String descripcion = object.getString ( "descripcion" );
+
+                            Producto p = new Producto ( id , url_imagen , nombre , precio , codigo_barras , descripcion );
+                            productoArrayList.add ( p );
+                            adapter.notifyDataSetChanged ( );
+
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace ( );
+
+                    Toast.makeText ( MainActivity.this , e.getMessage ().toString () , Toast.LENGTH_LONG ).show ( );
+                }
+
+
+            }
+        } , new Response.ErrorListener ( ) {
+            @Override
+            public void onErrorResponse ( VolleyError error ) {
+
+                Toast.makeText ( MainActivity.this , error.getMessage (), Toast.LENGTH_SHORT ).show ( );
+            }
+        } );
+
+        /*
+         Estas dos línes son importante. Sin RequestQueue no hace nada
+         */
+        RequestQueue requestQueue = Volley.newRequestQueue ( this );
+        requestQueue.add ( stringRequest );
+    }
+
 
 
 

@@ -10,8 +10,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import clases.DataBaseSQLite;
-
 public class AddManualActivity extends AppCompatActivity {
 
 
@@ -25,7 +23,7 @@ public class AddManualActivity extends AppCompatActivity {
     protected String nombre;
     protected String precio;
     protected String descripcion;
-    protected DataBaseSQLite db;
+
 
 
     @Override
@@ -37,7 +35,7 @@ public class AddManualActivity extends AppCompatActivity {
         getSupportActionBar ().setDisplayShowTitleEnabled ( false );
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        db = new DataBaseSQLite ( this );
+
         cajaNombre = (EditText ) findViewById ( R.id.cajaNombre_add );
         cajaPrecio = (EditText ) findViewById ( R.id.cajaPrecio_add );
         cajaDescripcion = (EditText ) findViewById ( R.id.cajaDescripcion_add );
@@ -59,7 +57,7 @@ public class AddManualActivity extends AppCompatActivity {
                 precio = cajaPrecio.getText ().toString ();
                 descripcion = cajaDescripcion.getText ().toString ();
 
-                db.insertarProducto ( nombre, Float.parseFloat ( precio ), null, null, descripcion );
+
 
                 pasarPantalla = new Intent ( AddManualActivity.this, MainActivity.class );
                 pasarPantalla.putExtra ( "PRODUCTO", nombre + "\n"+ precio+ "\n" + descripcion );

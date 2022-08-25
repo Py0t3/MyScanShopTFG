@@ -2,17 +2,17 @@ package clases;
 
 public class Producto {
 
-    private int identificador;
+    private String id;
     private String nombre;
-    private float precio;
+    private String precio;
     private String urlImagen;
     private String codigoBarras;
     private String descripcion;
 
 
-    public Producto ( int id,String nombre, float precio, String urlImagen, String codigoBarras, String descripcion){
+    public Producto ( String id,String nombre, String precio, String urlImagen, String codigoBarras, String descripcion){
 
-        this.identificador =id;
+        this.id =id;
         this.nombre = nombre;
         this.precio = precio;
         this.urlImagen = urlImagen;
@@ -20,12 +20,8 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public Producto ( String nombre, String urlImagen){
 
-        this.nombre = nombre;
-        this.urlImagen = urlImagen;
-    }
-    public Producto ( String nombre,float precio, String urlImagen, String descripcion)
+    public Producto ( String nombre,String precio, String urlImagen, String descripcion)
     {
 
         this.nombre = nombre;
@@ -34,14 +30,14 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public Producto ( String nombre, float precio){
+    public Producto ( String nombre, String precio){
 
         this.nombre = nombre;
         this.precio = precio;
     }
-    public Producto ( int identificador, String nombre, float precio){
+    public Producto ( String id, String nombre, String precio){
 
-        this.identificador= identificador;
+        this.id= id;
         this.nombre = nombre;
         this.precio = precio;
 
@@ -52,8 +48,8 @@ public class Producto {
         return nombre;
     }
 
-    public void setIdentificador ( int id ) {
-        this.identificador = id;
+    public void setIdentificador ( String id ) {
+        this.id = id;
     }
 
     public void setUrlImagen ( String urlImagen ) {
@@ -92,11 +88,11 @@ public class Producto {
         return nombre.hashCode();
     }
 
-    public float getPrecio () {
+    public String getPrecio () {
         return precio;
     }
 
-    public void setPrecio ( float precio ) {
+    public void setPrecio ( String precio ) {
         this.precio = precio;
     }
 }

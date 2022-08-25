@@ -12,14 +12,11 @@ import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 
-import clases.DataBaseSQLite;
-import clases.Producto;
-
 public class ScanActivity extends AppCompatActivity {
     private String codigoLeido="";
     protected Bundle paquete;
     protected Intent pasarPantalla;
-    protected DataBaseSQLite db;
+
     protected static ArrayList<String> cesta;
     protected String eurosPaquete="";
 
@@ -29,7 +26,7 @@ public class ScanActivity extends AppCompatActivity {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_scan );
 
-        db = new DataBaseSQLite ( this );
+
         cesta = MainActivity.cesta;
         new IntentIntegrator (this).initiateScan ();
         paquete = getIntent ().getExtras ();
@@ -56,25 +53,7 @@ public class ScanActivity extends AppCompatActivity {
             {
 
 
-                for(int i =0; i< db.getAllNotes ().size () ; i++)
-                {
-                    if(codigoLeido.equals ( db.getAllNotes ().get ( i ).getCodigoBarras () ))
-                    {
-                        //Toast.makeText ( this , "coincide" , Toast.LENGTH_SHORT ).show ( );
-                        pasarPantalla = new Intent ( ScanActivity.this, MainActivity.class );
-                        pasarPantalla.putExtra ( "SCAN", codigoLeido);
-                        startActivity ( pasarPantalla );
-                        finish ();
-                        break;
-                    }
-                    else{
-                        Toast.makeText ( this , "Producto no registrado" , Toast.LENGTH_SHORT ).show ( );
-                        pasarPantalla = new Intent ( ScanActivity.this, MainActivity.class );
-                        startActivity ( pasarPantalla );
-                        finish ();
-                    }
 
-                }
 
             }
         }

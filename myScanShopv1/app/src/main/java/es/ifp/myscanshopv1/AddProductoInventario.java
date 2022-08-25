@@ -20,8 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import clases.DataBaseSQLite;
-
 public class AddProductoInventario extends AppCompatActivity {
 
     protected ImageView imagen;
@@ -33,7 +31,7 @@ public class AddProductoInventario extends AppCompatActivity {
     protected Button botonGuardar;
     protected Button botonCancel;
     protected Intent pasarPantalla;
-    private DataBaseSQLite db;
+
     protected String nombre="";
     protected float precio=0.0f;
     protected String urlImagen="";
@@ -49,7 +47,7 @@ public class AddProductoInventario extends AppCompatActivity {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_add_producto_inventario );
 
-        db = new DataBaseSQLite ( this );
+
         imagen = (ImageView )findViewById ( R.id.image_addInventario );
         botonImagen =  (Button) findViewById ( R.id.botonImagen_addInventario );
         cajaNombre = (EditText ) findViewById ( R.id.cajaNombre_add );
@@ -88,20 +86,6 @@ public class AddProductoInventario extends AppCompatActivity {
                 codigoBarras =  cajaCodigo.getText ().toString () ;
                 descripcion = cajaDescripcion.getText ().toString ();
 
-                if( db.insertarProducto ( nombre,precio,urlImagen,codigoBarras,descripcion ))
-                {
-                    Toast.makeText ( AddProductoInventario.this , "Producto insertado correctamente" , Toast.LENGTH_SHORT ).show ( );
-                    pasarPantalla = new Intent ( AddProductoInventario.this, InventarioActivity.class );
-                    startActivity ( pasarPantalla );
-                    finish ();
-                }
-                else
-                {
-                    Toast.makeText ( AddProductoInventario.this , "No se pudo insertar el producto" , Toast.LENGTH_SHORT ).show ( );
-                    pasarPantalla = new Intent ( AddProductoInventario.this, InventarioActivity.class );
-                    startActivity ( pasarPantalla );
-                    finish ();
-                }
 
             }
         } );

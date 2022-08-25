@@ -17,7 +17,6 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 
 import adaptadores.AdaptadorInventario;
-import clases.DataBaseSQLite;
 import clases.Producto;
 
 public class BuscarActivity extends AppCompatActivity {
@@ -33,7 +32,7 @@ public class BuscarActivity extends AppCompatActivity {
     private ListAdapter adaptador;
     protected String busqueda = "";
     protected Producto p;
-    protected DataBaseSQLite db;
+
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
@@ -45,7 +44,6 @@ public class BuscarActivity extends AppCompatActivity {
         getSupportActionBar ().setDisplayShowTitleEnabled ( false );
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        db= new DataBaseSQLite ( this );
         label1 = (TextView )findViewById ( R.id.label1_buscar );
         caja1 = (EditText ) findViewById ( R.id.caja1_buscar );
         boton1 = (Button ) findViewById ( R.id.boton1_buscar );
@@ -55,38 +53,7 @@ public class BuscarActivity extends AppCompatActivity {
 
         adaptador = new AdaptadorInventario ( this, listaProductos);
 
-        boton1.setOnClickListener ( new View.OnClickListener ( ) {
-            @Override
-            public void onClick ( View view ) {
 
-
-                busqueda = caja1.getText ().toString ();
-
-                for(int i =0; i< db.getAllNotes ().size () ; i++)
-                {
-                    if(busqueda.equals ( db.getAllNotes ().get ( i ).getCodigoBarras () ))
-                    {
-                        Producto p = db.getProductoByCode ( busqueda );
-                        listaProductos.add ( p );
-                        lista1.setAdapter ( adaptador );
-                        break;
-                    }
-                    else if(busqueda.equals ( db.getAllNotes ().get ( i ).getNombre() ))
-                    {
-                        Producto p = db.getNote ( "'"+busqueda+"'" );
-                        listaProductos.add ( p );
-                        lista1.setAdapter ( adaptador );
-                        break;
-
-                    }
-
-                }
-                if(listaProductos.size ()==0)
-                {
-                    Toast.makeText ( BuscarActivity.this , "Producto no encontrado" , Toast.LENGTH_SHORT ).show ( );
-                }
-            }
-        } );
 
         lista1.setOnItemClickListener ( new AdapterView.OnItemClickListener ( ) {
             @Override

@@ -17,7 +17,6 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 
 import adaptadores.AdaptadorInventario;
-import clases.DataBaseSQLite;
 import clases.Producto;
 
 public class InventarioActivity extends AppCompatActivity {
@@ -31,7 +30,7 @@ public class InventarioActivity extends AppCompatActivity {
     protected ArrayList<Producto> listaProductos;
     private String contenidoItem="";
     private String[]partes;
-    protected DataBaseSQLite db;
+
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
@@ -43,7 +42,7 @@ public class InventarioActivity extends AppCompatActivity {
         getSupportActionBar ().setDisplayShowTitleEnabled ( true );
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        db = new DataBaseSQLite ( this );
+
         lista1 = (ListView ) findViewById ( R.id.listViewProducto_inventario );
         botonAdd = (ImageButton ) findViewById ( R.id.boton_add_inventario );
 
@@ -58,7 +57,7 @@ public class InventarioActivity extends AppCompatActivity {
             }
         } );
 
-        listaProductos= getListaProductos ();
+
         adaptador= new AdaptadorInventario ( this , listaProductos);
         lista1.setAdapter ( adaptador );
 
@@ -82,10 +81,7 @@ public class InventarioActivity extends AppCompatActivity {
                 builder.setNegativeButton ( "Borrar" , new DialogInterface.OnClickListener ( ) {
                     @Override
                     public void onClick ( DialogInterface dialogInterface , int i ) {
-                        if(db.deleteProducto ( p.getNombre () ))
-                        {
-                            Toast.makeText ( InventarioActivity.this , "Producto borrado crrectamente" , Toast.LENGTH_SHORT ).show ( );
-                        }
+
                        pasarPantalla = new Intent (InventarioActivity.this, InventarioActivity.class);
                        startActivity(pasarPantalla);
 
@@ -116,10 +112,6 @@ public class InventarioActivity extends AppCompatActivity {
         finish();
     }
 
-    public ArrayList <Producto> getListaProductos () {
-        listaProductos=new ArrayList<> (  );
-        listaProductos = db.getAllNotes ();
 
-        return listaProductos;
-    }
+
 }
