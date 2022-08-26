@@ -9,13 +9,16 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListAdapter;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,9 +31,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import adaptadores.AdapterGrid;
 import clases.Producto;
+import clases.Usuario;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     protected Button botonAdd;
     protected Button botonCaja;
     protected Button botonBuscar;
+    protected SearchView searchBar;
     protected Intent pasarPantalla;
     protected Bundle paquete;
     protected float euros = 0.0f;
@@ -50,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     protected String nombreUsuario;
     protected String productoManual;
     protected String url = "https://vaticinal-center.000webhostapp.com/mostrarProductos.php";
+    protected String urlBuscarProducto = "https://vaticinal-center.000webhostapp.com/buscarProducto.php";
     protected Producto p;
     public static ArrayList<Producto> productoArrayList = new ArrayList<> (  );
     protected AdapterGrid adapter;
@@ -71,11 +79,12 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         labelUser = (TextView )findViewById ( R.id.labelUser);
-        botonScan = (Button )findViewById ( R.id.botonScan_main );
-        botonAdd = (Button )findViewById ( R.id.botonAddd_main );
+        //botonScan = (Button )findViewById ( R.id.botonScan_main );
+       // botonAdd = (Button )findViewById ( R.id.botonAddd_main );
         botonCaja = (Button )findViewById ( R.id.botonCaja_main );
+        searchBar = (SearchView )findViewById ( R.id.searchBar_main );
 
-        botonBuscar = (Button )findViewById ( R.id.botonBuscar_main );
+       // botonBuscar = (Button )findViewById ( R.id.botonBuscar_main );
 
         grid = (GridView )findViewById ( R.id.gridList_main );
 
@@ -118,8 +127,26 @@ public class MainActivity extends AppCompatActivity {
 
         } );
 
+       /*
+       Acción de la barra de búsqueda SearchView. Llama al método buscarProducto. Se pone a la escucha
+       y se activa el método onQueryTextChange para que ejecute cada vez que se cambia una letra del texto en la barra.
+        */
+        searchBar.setOnQueryTextListener ( new SearchView.OnQueryTextListener ( ) {
+            @Override
+            public boolean onQueryTextSubmit ( String s ) {
+                return false;
+            }
 
-        botonBuscar.setOnClickListener ( new View.OnClickListener ( ) {
+            @Override
+            public boolean onQueryTextChange ( String busqueda ) {
+
+               buscarProducto (busqueda );
+                return true;
+            }
+        } );
+
+
+        /*botonBuscar.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick ( View view ) {
 
@@ -127,10 +154,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity ( pasarPantalla );
                 finish ();
             }
-        } );
+        } );*/
 
 
-        //Botón para añadir producto no registrado
+        /*//Botón para añadir producto no registrado
         botonAdd.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick ( View view ) {
@@ -151,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity ( pasarPantalla );
                 finish ();
             }
-        } );
+        } );*/
 
 
 
@@ -242,7 +269,72 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add ( stringRequest );
     }
 
+    private  void buscarProducto(String busqueda){
 
+        StringRequest stringRequest = new StringRequest ( Request.Method.POST , urlBuscarProducto , new Response.Listener<String> ( ) {
+            @Override
+            public void onResponse ( String response ) {
+                productoArrayList.clear ( );
+
+                try {
+                    JSONObject jsonObject = new JSONObject ( response );
+                    String exito = jsonObject.getString ( "exito" );
+
+                    if (exito.equals ( "1" )) {
+                        JSONArray jsonArray = jsonObject.getJSONArray ( ("datos") );
+                        for (int i = 0; i < jsonArray.length ( ); i++) {
+
+                            JSONObject object = jsonArray.getJSONObject ( i );
+
+                            String id = object.getString ( "id" );
+                            String url_imagen = object.getString ( "url_imagen" );
+                            String nombre = object.getString ( "nombre" );
+                            String precio = object.getString ( "precio" );
+                            String codigo_barras = object.getString ( "codigo_barras" );
+                            String descripcion = object.getString ( "descripcion" );
+
+                            Producto p = new Producto ( id, url_imagen, nombre, precio, codigo_barras, descripcion );
+                            productoArrayList.add ( p );
+                            adapter.notifyDataSetChanged ( );
+                        }
+
+
+                    } else {
+                        Toast.makeText ( MainActivity.this , "Sin registros" , Toast.LENGTH_SHORT ).show ( );
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace ( );
+                }
+
+            }
+        } , new Response.ErrorListener ( ) {
+            @Override
+            public void onErrorResponse ( VolleyError error ) {
+
+                Toast.makeText ( MainActivity.this , error.getMessage ( ) , Toast.LENGTH_SHORT ).show ( );
+            }
+        } ) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams () throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<> ( );
+
+                params.put ( "nombre" , busqueda );
+
+
+                return params;
+            }
+
+        };
+            /*
+             Estas dos línes son importante. Sin RequestQueue no hace nada
+             */
+        RequestQueue requestQueue = Volley.newRequestQueue ( MainActivity.this );
+        requestQueue.add ( stringRequest );
+
+    }
 
 
 }

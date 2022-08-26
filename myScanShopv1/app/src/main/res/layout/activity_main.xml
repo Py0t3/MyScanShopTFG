@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F4F4"
+    android:backgroundTint="#F8F4F4"
     tools:context=".MainActivity">
-
 
 
     <androidx.appcompat.widget.Toolbar
@@ -57,9 +57,9 @@
         android:backgroundTint="#D1DFDE"
         android:cacheColorHint="#777575"
         android:numColumns="3"
+
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-
         android:verticalSpacing="8dp"
         app:barrierMargin="1dp"
         app:layout_constraintBottom_toTopOf="@+id/botonCaja_main"
@@ -84,43 +84,30 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <Button
-            android:id="@+id/botonBuscar_main"
-            android:layout_width="110dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="0dp"
-            android:backgroundTint="@null"
-            android:textColor="#FBFBFB"
-            app:icon="@android:drawable/ic_menu_search"
-            app:iconGravity="textEnd"
-            app:iconTint="#DAD7D7" />
-
-        <Button
             android:id="@+id/botonAddd_main"
-            android:layout_width="110dp"
-            android:layout_height="match_parent"
+            android:layout_width="102dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginStart="16dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="16dp"
+            android:background="@drawable/press_button"
             android:backgroundTint="@null"
+            android:gravity="center"
             android:textColor="#FBFBFB"
             app:icon="@android:drawable/ic_menu_edit"
             app:iconGravity="textEnd"
+            app:iconSize="30dp"
             app:iconTint="#DAD7D7" />
 
-        <Button
-            android:id="@+id/botonScan_main"
-            android:layout_width="110dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/myScanShop"
-            android:hapticFeedbackEnabled="false"
-            android:textColor="#FFFFFF"
-            app:icon="@drawable/barcodeicon"
-            app:iconGravity="textEnd"
-            app:iconSize="45dp"
-            app:iconTint="#DAD7D7" />
+        <SearchView
+            android:id="@+id/searchBar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/press_button"
+            android:backgroundTint="#7F9393" />
+
     </LinearLayout>
 
     <TextView
@@ -148,5 +135,18 @@
         app:layout_constraintBottom_toTopOf="@+id/labelUser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="120dp"
+        android:clickable="true"
+        app:backgroundTint="@color/myScanShop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="30dp"
+        app:srcCompat="@drawable/barcodeicon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
