@@ -19,6 +19,13 @@ public class Producto {
         this.codigoBarras = codigoBarras;
         this.descripcion = descripcion;
     }
+    public Producto (String nombre, String precio, String descripcion){
+
+        this.nombre = nombre;
+        this.precio = precio;
+        this.descripcion = descripcion;
+    }
+
 
     public String getNombre(){
 

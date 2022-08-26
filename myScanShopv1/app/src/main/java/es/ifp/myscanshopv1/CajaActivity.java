@@ -45,9 +45,9 @@ public class CajaActivity extends AppCompatActivity {
     protected ListView lista1;
     protected CheckBox checkBox;
     private ListAdapter adaptador;
-    protected static ArrayList<String> listaCaja;
+    protected static ArrayList<Producto> listaCaja;
     protected ArrayList<Producto> listaTotal;
-    protected String totalEuros = "";
+    protected static float totalEuros = 0.0f;
     private Bundle paquete;
     protected Producto p;
 
@@ -72,24 +72,19 @@ public class CajaActivity extends AppCompatActivity {
         totalFactura = (TextView )findViewById ( R.id.totalFactura_caja ) ;
 
 
-        paquete=getIntent().getExtras();
-        if(paquete!=null)
-        {
-            euros = paquete.getString("TOTALEUROS");
-
-
-            totalFactura.setText( euros );
-
-        }
 
         listaCaja= new ArrayList<> (  );
-        listaCaja= MainActivity.cesta;
+
+
         listaTotal = new ArrayList<> (  );
 
-        Toast.makeText ( this , ""+listaCaja.size () , Toast.LENGTH_SHORT ).show ( );
 
-        adaptador= new AdaptadorCaja ( this, listaTotal);
+        totalFactura.setText ( Float.toString ( calcularTotal ()));
+
+        adaptador= new AdaptadorCaja ( this, MainActivity.cajaArrayList);
         lista1.setAdapter ( adaptador );
+
+
 
 
 
@@ -141,6 +136,19 @@ public class CajaActivity extends AppCompatActivity {
 
 
     }
+    public static float calcularTotal(){
+        totalEuros = 0.00f;
+
+        if(MainActivity.cajaArrayList !=null){
+
+            for(int i = 0; i < MainActivity.cajaArrayList.size () ; i++){
+
+                totalEuros += Float.parseFloat ( MainActivity.cajaArrayList.get ( i ).getPrecio () );
+            }
+        }
+
+        return totalEuros;
+    }
     public void generarPdf() {
         PdfDocument pdfDocument = new PdfDocument();
         Paint paint = new Paint();
@@ -168,8 +176,8 @@ public class CajaActivity extends AppCompatActivity {
         }
         totalDescripcion.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         totalDescripcion.setTextSize(16);
-        totalEuros = "TOTAL:        " + totalFactura.getText ().toString () + " EUROS";
-        canvas.drawText(totalEuros, 10, y, totalDescripcion);
+        //totalEuros = "TOTAL:        " + totalFactura.getText ().toString () + " EUROS";
+        //canvas.drawText(totalEuros, 10, y, totalDescripcion);
 
 
         pdfDocument.finishPage(pagina1);

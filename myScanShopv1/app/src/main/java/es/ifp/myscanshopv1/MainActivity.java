@@ -25,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,29 +43,24 @@ public class MainActivity extends AppCompatActivity {
 
     protected Toolbar toolbar;
     protected TextView labelUser;
-    protected Button botonScan;
+    protected FloatingActionButton botonScan;
     protected Button botonAdd;
     protected Button botonCaja;
     protected Button botonBuscar;
     protected SearchView searchBar;
     protected Intent pasarPantalla;
     protected Bundle paquete;
-    protected float euros = 0.0f;
-    protected String eurosPaquete="";
-    protected String[] partes;
     protected String codigoBarras;
     protected String nombre;
     protected String nombreUsuario;
     protected String productoManual;
     protected String url = "https://vaticinal-center.000webhostapp.com/mostrarProductos.php";
     protected String urlBuscarProducto = "https://vaticinal-center.000webhostapp.com/buscarProducto.php";
-    protected Producto p;
     public static ArrayList<Producto> productoArrayList = new ArrayList<> (  );
+    public static ArrayList<Producto> cajaArrayList = new ArrayList<> (  );
     protected AdapterGrid adapter;
 
     protected GridView grid;
-    protected ArrayList<Producto> listaProductos;
-    protected ArrayList<Producto> totalProductos;
     protected static ArrayList<String> cesta;
 
     @SuppressLint("ResourceAsColor")
@@ -79,24 +75,22 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         labelUser = (TextView )findViewById ( R.id.labelUser);
-        //botonScan = (Button )findViewById ( R.id.botonScan_main );
-       // botonAdd = (Button )findViewById ( R.id.botonAddd_main );
+        botonScan = ( FloatingActionButton ) findViewById ( R.id.botonScan_main );
+        botonAdd = (Button )findViewById ( R.id.botonAddd_main );
         botonCaja = (Button )findViewById ( R.id.botonCaja_main );
         searchBar = (SearchView )findViewById ( R.id.searchBar_main );
 
-       // botonBuscar = (Button )findViewById ( R.id.botonBuscar_main );
-
         grid = (GridView )findViewById ( R.id.gridList_main );
+        botonCaja.setText ( "TOTAL: " + CajaActivity.calcularTotal () + " EUROS" );
 
 
-        paquete=getIntent().getExtras();
-        if(paquete!=null) {
-            nombreUsuario = paquete.getString ( "nombreUsuario" );
-            labelUser.setText ( "Usuario: " + nombreUsuario );
-        }
+        nombreUsuario = Login.u.getNombre ();
+        labelUser.setText ( "Usuario: " + nombreUsuario );
+
         adapter = new AdapterGrid ( this, productoArrayList );
         grid.setAdapter ( adapter );
         listarProductos ();
+
 
 
 
@@ -113,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick ( DialogInterface dialogInterface , int i ) {
 
-
+                        cajaArrayList.add ( p );
+                        botonCaja.setText ( "TOTAL: " + CajaActivity.calcularTotal () + " EUROS" );
                     }
                 } );
 
@@ -139,25 +134,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange ( String busqueda ) {
-
                buscarProducto (busqueda );
                 return true;
             }
         } );
 
 
-        /*botonBuscar.setOnClickListener ( new View.OnClickListener ( ) {
-            @Override
-            public void onClick ( View view ) {
-
-                pasarPantalla = new Intent ( MainActivity.this, BuscarActivity.class );
-                startActivity ( pasarPantalla );
-                finish ();
-            }
-        } );*/
 
 
-        /*//Botón para añadir producto no registrado
+        //Botón para añadir producto no registrado
         botonAdd.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick ( View view ) {
@@ -174,11 +159,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick ( View view ) {
 
                 pasarPantalla = new Intent ( MainActivity.this, ScanActivity.class );
-                pasarPantalla.putExtra ( "TOTALEUROS", eurosPaquete );
                 startActivity ( pasarPantalla );
                 finish ();
             }
-        } );*/
+        } );
 
 
 
@@ -188,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick ( View view ) {
 
                 pasarPantalla = new Intent ( MainActivity.this, CajaActivity.class );
-                pasarPantalla.putExtra ( "TOTALEUROS", eurosPaquete);
                 startActivity ( pasarPantalla );
                 finish ();
             }
@@ -199,18 +182,32 @@ public class MainActivity extends AppCompatActivity {
     //Botón Volver Superior
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        dialogoAlertaSalir ();
         return true;
     }
     //Botón Volver Inferior
     @Override
     public void onBackPressed () {
-        super.onBackPressed ( );
-        //Vacia la cesta y resetea valores a 0
-        CajaActivity.listaCaja = null;
-        pasarPantalla = new Intent (MainActivity.this, MenuActivity.class);
-        startActivity(pasarPantalla);
-        finish();
+        dialogoAlertaSalir ();
+    }
+    public void dialogoAlertaSalir(){
+
+        AlertDialog.Builder builder= new AlertDialog.Builder ( MainActivity.this );
+        builder.setTitle ( "Salir del proceso de venta");
+        builder.setMessage ( "¿Seguro que desea salir del proceso de venta? Se borrará la cesta actual" );
+        builder.setPositiveButton ( "SALIR" , new DialogInterface.OnClickListener ( ) {
+            @Override
+            public void onClick ( DialogInterface dialogInterface , int i ) {
+                cajaArrayList.clear ();
+                pasarPantalla = new Intent (MainActivity.this, MenuActivity.class);
+                startActivity(pasarPantalla);
+                finish();
+            }
+        } );
+
+        builder.setNeutralButton ( "Cancelar", null );
+        AlertDialog dialog= builder.create();
+        builder.show();
     }
 
 

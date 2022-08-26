@@ -6,9 +6,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import clases.Producto;
 
 public class AddManualActivity extends AppCompatActivity {
 
@@ -23,6 +26,7 @@ public class AddManualActivity extends AppCompatActivity {
     protected String nombre;
     protected String precio;
     protected String descripcion;
+    protected Producto p;
 
 
 
@@ -42,12 +46,6 @@ public class AddManualActivity extends AppCompatActivity {
 
         botonAdd  =(Button )findViewById ( R.id.botonGuardar_add );
 
-
-
-
-
-
-
         botonAdd.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick ( View view ) {
@@ -57,13 +55,17 @@ public class AddManualActivity extends AppCompatActivity {
                 precio = cajaPrecio.getText ().toString ();
                 descripcion = cajaDescripcion.getText ().toString ();
 
+                if(nombre.equals ( "" ) || precio.equals ( "" )){
 
-
-                pasarPantalla = new Intent ( AddManualActivity.this, MainActivity.class );
-                pasarPantalla.putExtra ( "PRODUCTO", nombre + "\n"+ precio+ "\n" + descripcion );
-                startActivity ( pasarPantalla );
-                finish ();
-
+                    Toast.makeText ( AddManualActivity.this , "Los campos 'NOMBRE' y 'PRECIO' son obligatorios" , Toast.LENGTH_SHORT ).show ( );
+                }
+                else{
+                    p= new Producto (nombre, precio, descripcion );
+                    MainActivity.cajaArrayList.add ( p );
+                    pasarPantalla = new Intent ( AddManualActivity.this, MainActivity.class );
+                    startActivity ( pasarPantalla );
+                    finish ();
+                }
             }
         } );
 
@@ -82,7 +84,6 @@ public class AddManualActivity extends AppCompatActivity {
         super.onBackPressed ( );
         pasarPantalla = new Intent (AddManualActivity.this, MainActivity.class);
         startActivity(pasarPantalla);
-        //overridePendingTransition ( R.anim.right_in, R.anim.right_out );
         finish();
     }
 }

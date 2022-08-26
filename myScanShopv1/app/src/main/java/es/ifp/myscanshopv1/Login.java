@@ -38,6 +38,7 @@ public class Login extends AppCompatActivity {
     protected String pass="";
     protected String url = "https://vaticinal-center.000webhostapp.com/checklogin.php";
     protected Intent intent;
+    protected static Usuario u;
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
@@ -86,15 +87,13 @@ public class Login extends AppCompatActivity {
                                     String nombre = object.getString ( "nombre" );
                                     String puesto = object.getString ( "puesto" );
 
-                                    Usuario u = new Usuario ( id, user, pass, nombre, puesto );
+                                    u = new Usuario ( id, user, pass, nombre, puesto );
                                     String nombreUsuario = u.getNombre ();
-                                    intent = new Intent ( Login.this, MenuActivity.class );
-                                    intent.putExtra("nombreUsuario",nombreUsuario);
                                     Toast.makeText ( Login.this , "Hola: " + nombreUsuario , Toast.LENGTH_SHORT ).show ( );
 
                                 }
 
-                                startActivity ( intent  );
+                                startActivity ( intent = new Intent (Login.this, MenuActivity.class ) );
                                 finish ( );
 
                             } else {
