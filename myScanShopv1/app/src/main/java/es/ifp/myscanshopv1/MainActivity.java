@@ -46,15 +46,11 @@ public class MainActivity extends AppCompatActivity {
     protected FloatingActionButton botonScan;
     protected Button botonAdd;
     protected Button botonCaja;
-    protected Button botonBuscar;
     protected SearchView searchBar;
     protected Intent pasarPantalla;
-    protected Bundle paquete;
-    protected String codigoBarras;
     protected String nombre;
     protected String nombreUsuario;
-    protected String productoManual;
-    protected String url = "https://vaticinal-center.000webhostapp.com/mostrarProductos.php";
+    protected static String url = "https://vaticinal-center.000webhostapp.com/mostrarProductos.php";
     protected String urlBuscarProducto = "https://vaticinal-center.000webhostapp.com/buscarProducto.php";
     public static ArrayList<Producto> productoArrayList = new ArrayList<> (  );
     public static ArrayList<Producto> cajaArrayList = new ArrayList<> (  );
@@ -138,8 +134,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         } );
-
-
 
 
         //Botón para añadir producto no registrado
@@ -326,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
 
         };
             /*
-             Estas dos línes son importante. Sin RequestQueue no hace nada
+             Estas dos línes son importantes. Sin RequestQueue no hace nada
              */
         RequestQueue requestQueue = Volley.newRequestQueue ( MainActivity.this );
         requestQueue.add ( stringRequest );

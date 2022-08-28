@@ -97,7 +97,7 @@ public class Login extends AppCompatActivity {
                                 finish ( );
 
                             } else {
-                                Toast.makeText ( Login.this , "Sin registros" , Toast.LENGTH_SHORT ).show ( );
+                                Toast.makeText ( Login.this , "Usuario o contraseña incorrectos" , Toast.LENGTH_SHORT ).show ( );
                             }
 
                         } catch (JSONException e) {
