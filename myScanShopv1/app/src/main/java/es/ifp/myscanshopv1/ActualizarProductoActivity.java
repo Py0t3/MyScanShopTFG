@@ -4,11 +4,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -29,38 +30,43 @@ import java.util.Map;
 
 import clases.Producto;
 
-public class InfoProductoActivity extends AppCompatActivity {
+public class ActualizarProductoActivity extends AppCompatActivity {
 
     protected ImageView imagen;
-    protected TextView labelNombre;
-    protected TextView labelID;
-    protected TextView labelPrecio;
-    protected TextView labelBarCode;
-    protected TextView labelDescripcion;
-    protected Button botonVolver, botonEliminar, botonEditar;
-    private Intent pasarPAntalla;
-    private Bundle paquete;
+    protected Button botonImagen;
+    protected EditText cajaNombre;
+    protected EditText cajaPrecio;
+    protected EditText cajaCodigo;
+    protected EditText cajaDescripcion;
+    protected Button botonGuardar;
+    protected Button botonCancel;
+    protected Intent pasarPantalla;
+    protected Bundle paquete;
     protected String id;
-    protected String url = "https://vaticinal-center.000webhostapp.com/seleccionarProducto.php";
-    protected  String urlEliminar = "https://vaticinal-center.000webhostapp.com/eliminarProducto.php";
-
+    protected String nombre="";
+    protected String precio="";
+    protected String url_imagen="";
+    protected String codigo_barras="";
+    protected String descripcion="";
+    protected Uri ruta;
+    protected String urlInfo = "https://vaticinal-center.000webhostapp.com/seleccionarProducto.php";
+    protected String urlActualizar = "https://vaticinal-center.000webhostapp.com/actualizarProducto.php";
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
         super.onCreate ( savedInstanceState );
-        setContentView ( R.layout.activity_info_producto );
+        setContentView ( R.layout.activity_actualizar_producto );
 
+        imagen = (ImageView )findViewById ( R.id.image_actualizar );
+        botonImagen =  (Button) findViewById ( R.id.botonImagen_actualizar );
+        cajaNombre = (EditText ) findViewById ( R.id.cajaNombre_actualizar );
+        cajaPrecio = (EditText ) findViewById ( R.id.cajaPrecio_actualizar );
+        cajaCodigo = (EditText ) findViewById ( R.id.cajaCodigo_actualizar );
+        cajaDescripcion = (EditText )findViewById ( R.id.cajaDescripcion_actualizar );
+        botonGuardar = (Button ) findViewById ( R.id.botonGuardar_actualizar );
+        botonCancel = (Button ) findViewById ( R.id.botonCancel_actualizar );
 
-        imagen = (ImageView) findViewById ( R.id.imagen_info );
-        labelNombre = (TextView ) findViewById ( R.id.labelNombre_info );
-        labelID = (TextView ) findViewById ( R.id.labelID_info );
-        labelPrecio = (TextView ) findViewById ( R.id.labelPrecio_info );
-        labelBarCode = (TextView ) findViewById ( R.id.labelBar_info );
-        labelDescripcion = (TextView ) findViewById ( R.id.labelDescripcion_info );
-        botonVolver = (Button ) findViewById ( R.id.botonVolverl_info );
-        botonEditar = (Button ) findViewById ( R.id.botonEditar_info );
-        botonEliminar = (Button ) findViewById ( R.id.botonEliminar_info );
-
+        imagen.setImageResource ( R.drawable.logoxl );
         paquete = getIntent ().getExtras ();
 
         if(paquete != null)
@@ -71,38 +77,35 @@ public class InfoProductoActivity extends AppCompatActivity {
 
 
         }
-        botonVolver.setOnClickListener ( new View.OnClickListener ( ) {
+
+        botonCancel.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick ( View view ) {
 
-                pasarPAntalla = new Intent ( InfoProductoActivity.this, InventarioActivity.class );
-                startActivity ( pasarPAntalla );
+                startActivity ( new Intent ( ActualizarProductoActivity.this, InventarioActivity.class ) );
                 finish ();
             }
         } );
 
-        botonEliminar.setOnClickListener ( new View.OnClickListener ( ) {
+        botonGuardar.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick ( View view ) {
 
-                 eliminarPriducto ();
+                url_imagen ="https://vaticinal-center.000webhostapp.com/images/logoxl.jpg";
+                nombre = cajaNombre.getText ().toString ();
+                precio = cajaPrecio.getText ().toString ();
+                codigo_barras = cajaCodigo.getText ().toString ();
+                descripcion = cajaDescripcion.getText ().toString ();
+
+                actualizarProducto (id, url_imagen, nombre,precio,codigo_barras,descripcion );
+
+
             }
         } );
-
-        botonEditar.setOnClickListener ( new View.OnClickListener ( ) {
-            @Override
-            public void onClick ( View view ) {
-                 pasarPAntalla = new Intent ( InfoProductoActivity.this, ActualizarProductoActivity.class );
-                 pasarPAntalla.putExtra ( "id", id );
-                 startActivity ( pasarPAntalla );
-                 finish ();
-            }
-        } );
-
     }
     public  void seleccionarProducto(){
 
-        StringRequest stringRequest = new StringRequest ( Request.Method.POST, url , new Response.Listener<String> ( ) {
+        StringRequest stringRequest = new StringRequest ( Request.Method.POST, urlInfo , new Response.Listener<String> ( ) {
             @Override
             public void onResponse ( String response ) {
 
@@ -127,11 +130,10 @@ public class InfoProductoActivity extends AppCompatActivity {
 
                             Producto p = new Producto ( id , url_imagen , nombre , precio , codigo_barras , descripcion );
                             Picasso.get().load(p.getUrlImagen ()).error ( R.drawable.logoxl ).into(imagen);
-                            labelNombre.setText ( p.getNombre () );
-                            labelID.setText ( "ID: "+p.getIdentificador () );
-                            labelPrecio.setText ( "PVP: " + p.getPrecio ()+ " EUROS" );
-                            labelBarCode.setText ( "BARCODE: " + p.getCodigoBarras () );
-                            labelDescripcion.setText ( "Descripción:\n \n"+ p.getDescripcion () );
+                            cajaNombre.setText ( p.getNombre () );
+                            cajaPrecio.setText (  p.getPrecio ());
+                            cajaCodigo.setText (  p.getCodigoBarras () );
+                            cajaDescripcion.setText ( p.getDescripcion () );
 
 
                         }
@@ -140,7 +142,7 @@ public class InfoProductoActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace ( );
 
-                    //Toast.makeText ( InfoProductoActivity.this , e.getMessage ().toString () , Toast.LENGTH_LONG ).show ( );
+                    Toast.makeText ( ActualizarProductoActivity.this , e.getMessage ().toString () , Toast.LENGTH_LONG ).show ( );
                 }
 
 
@@ -149,7 +151,7 @@ public class InfoProductoActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse ( VolleyError error ) {
 
-                //Toast.makeText ( InfoProductoActivity.this , error.getMessage (), Toast.LENGTH_SHORT ).show ( );
+                Toast.makeText ( ActualizarProductoActivity.this , error.getMessage (), Toast.LENGTH_SHORT ).show ( );
             }
         } ){
             @Nullable
@@ -173,12 +175,11 @@ public class InfoProductoActivity extends AppCompatActivity {
 
 
     }
-    private void eliminarPriducto(){
+    public void actualizarProducto(String id, String url_imagen, String nombre, String precio, String codigo_barras, String descripcion){
 
-        StringRequest stringRequest = new StringRequest ( Request.Method.POST, urlEliminar , new Response.Listener<String> ( ) {
+        StringRequest stringRequest = new StringRequest ( Request.Method.POST , urlActualizar , new Response.Listener<String> ( ) {
             @Override
             public void onResponse ( String response ) {
-
 
                 try {
 
@@ -186,28 +187,28 @@ public class InfoProductoActivity extends AppCompatActivity {
                     String exito = jsonObject.getString ( "exito" );
 
                     if (exito.equals ( "1" )) {
-                        Toast.makeText ( InfoProductoActivity.this , "Producto eliminado correctamente" , Toast.LENGTH_SHORT ).show ( );
-                        startActivity ( new Intent ( InfoProductoActivity.this, InventarioActivity.class ) );
+                        Toast.makeText ( ActualizarProductoActivity.this , "Producto editado correctamente" , Toast.LENGTH_SHORT ).show ( );
+                        startActivity ( new Intent ( ActualizarProductoActivity.this, InventarioActivity.class ) );
                         finish ();
-                        }
+                    }
                     else{
 
-                        Toast.makeText ( InfoProductoActivity.this , "No se pudo eliminar el producto" , Toast.LENGTH_SHORT ).show ( );
+                        Toast.makeText ( ActualizarProductoActivity.this , "No se pudo editar el producto" , Toast.LENGTH_SHORT ).show ( );
                     }
 
 
                 } catch (JSONException e) {
                     e.printStackTrace ( );
 
-                    Toast.makeText ( InfoProductoActivity.this , e.getMessage ().toString () , Toast.LENGTH_LONG ).show ( );
+                    Toast.makeText ( ActualizarProductoActivity.this ,"Aqui" + e.getMessage ().toString () , Toast.LENGTH_LONG ).show ( );
                 }
 
             }
+
         } , new Response.ErrorListener ( ) {
             @Override
             public void onErrorResponse ( VolleyError error ) {
 
-                Toast.makeText ( InfoProductoActivity.this , error.getMessage (), Toast.LENGTH_SHORT ).show ( );
             }
         } ){
             @Nullable
@@ -216,17 +217,19 @@ public class InfoProductoActivity extends AppCompatActivity {
 
                 Map<String, String> params = new HashMap<> ( );
 
+                params.put ( "url_imagen" , url_imagen );
+                params.put ( "nombre" , nombre );
+                params.put ( "precio" , precio );
+                params.put ( "codigo_barras" , codigo_barras );
+                params.put ( "descripcion" , descripcion );
                 params.put ( "id" , id );
+
 
                 return params;
             }
         };
-
-        /*
-         Estas dos línes son importante. Sin RequestQueue no hace nada
-         */
         RequestQueue requestQueue = Volley.newRequestQueue ( this );
         requestQueue.add ( stringRequest );
-
     }
+
 }

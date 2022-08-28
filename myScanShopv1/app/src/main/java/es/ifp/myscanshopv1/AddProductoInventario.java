@@ -3,6 +3,7 @@ package es.ifp.myscanshopv1;
 import static android.Manifest.permission.CAMERA;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -20,6 +21,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class AddProductoInventario extends AppCompatActivity {
 
     protected ImageView imagen;
@@ -33,11 +48,12 @@ public class AddProductoInventario extends AppCompatActivity {
     protected Intent pasarPantalla;
 
     protected String nombre="";
-    protected float precio=0.0f;
+    protected String precio="";
     protected String urlImagen="";
     protected String codigoBarras="";
     protected String descripcion="";
     protected Uri ruta;
+    protected String url = "https://vaticinal-center.000webhostapp.com/insertarProducto.php";
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int RESULT_LOAD_IMAGE= 2;
@@ -48,14 +64,14 @@ public class AddProductoInventario extends AppCompatActivity {
         setContentView ( R.layout.activity_add_producto_inventario );
 
 
-        imagen = (ImageView )findViewById ( R.id.image_addInventario );
-        botonImagen =  (Button) findViewById ( R.id.botonImagen_addInventario );
+        imagen = (ImageView )findViewById ( R.id.image_add );
+        botonImagen =  (Button) findViewById ( R.id.botonImagen_add );
         cajaNombre = (EditText ) findViewById ( R.id.cajaNombre_add );
         cajaPrecio = (EditText ) findViewById ( R.id.cajaPrecio_add );
-        cajaCodigo = (EditText ) findViewById ( R.id.cajaCodigo_addInventario );
+        cajaCodigo = (EditText ) findViewById ( R.id.cajaCodigo_add );
         cajaDescripcion = (EditText )findViewById ( R.id.cajaDescripcion_add );
         botonGuardar = (Button ) findViewById ( R.id.botonGuardar_add );
-        botonCancel = (Button ) findViewById ( R.id.botonCancel_addInventario);
+        botonCancel = (Button ) findViewById ( R.id.botonCancel_add );
 
 
 
@@ -81,11 +97,12 @@ public class AddProductoInventario extends AppCompatActivity {
             public void onClick ( View view ) {
 
                 nombre = cajaNombre.getText ().toString ();
-                precio = Float.parseFloat ( cajaPrecio.getText ().toString ());
+                precio = cajaPrecio.getText ().toString ();
                 urlImagen = "https://loremflickr.com/320/240/dog";
                 codigoBarras =  cajaCodigo.getText ().toString () ;
                 descripcion = cajaDescripcion.getText ().toString ();
 
+                insertarProducto ( urlImagen, nombre, precio, codigoBarras, descripcion );
 
             }
         } );
@@ -169,4 +186,59 @@ por lo que lo que cargará será una imagen de la galeria llamada con el método
             pasarPantalla = new Intent ( AddProductoInventario.this, AddProductoInventario.class );
         }
     }
+    public void insertarProducto(String url_imagen, String nombre, String precio, String codigo_barras, String descripcion){
+
+        StringRequest stringRequest = new StringRequest ( Request.Method.POST , url , new Response.Listener<String> ( ) {
+            @Override
+            public void onResponse ( String response ) {
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject ( response );
+                    String exito = jsonObject.getString ( "exito" );
+
+                    if (exito.equals ( "1" )) {
+                        Toast.makeText ( AddProductoInventario.this , "Producto insertado correctamente" , Toast.LENGTH_SHORT ).show ( );
+                        startActivity ( new Intent ( AddProductoInventario.this, InventarioActivity.class ) );
+                        finish ();
+                    }
+                    else{
+
+                        Toast.makeText ( AddProductoInventario.this , "No se pudo eliminar el producto" , Toast.LENGTH_SHORT ).show ( );
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace ( );
+
+                    Toast.makeText ( AddProductoInventario.this , e.getMessage ().toString () , Toast.LENGTH_LONG ).show ( );
+                }
+
+            }
+
+        } , new Response.ErrorListener ( ) {
+            @Override
+            public void onErrorResponse ( VolleyError error ) {
+
+            }
+        } ){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams () throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<> ( );
+
+                params.put ( "url_imagen" , url_imagen );
+                params.put ( "nombre" , nombre );
+                params.put ( "precio" , precio );
+                params.put ( "codigo_barras" , codigo_barras );
+                params.put ( "descripcion" , descripcion );
+
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue ( this );
+        requestQueue.add ( stringRequest );
+    }
+
 }

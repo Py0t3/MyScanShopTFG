@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:backgroundTint="#F6F5F5"
     app:circularflow_radiusInDP="@null"
     app:guidelineUseRtl="false"
-    tools:context=".AddManualActivity">
+    tools:context=".ActualizarProductoActivity">
 
     <TextView
         android:id="@+id/labelPrecio_actualizar"
@@ -26,13 +25,13 @@
         app:layout_constraintTop_toBottomOf="@+id/cajaNombre_actualizar" />
 
     <TextView
-        android:id="@+id/labelDescripcion_actualizar"
+        android:id="@+id/labelCantidad_actualizar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Observaciones:"
+        android:text="Código de Barras:"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,16 +39,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelEuros_actualizar" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_add"
-        android:layout_width="409dp"
+    <TextView
+        android:id="@+id/labelDescripcion_actualizar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/myScanShopToolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="Descripción:"
+        android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/cajaCodigo_actualizar" />
 
     <EditText
         android:id="@+id/cajaNombre_actualizar"
@@ -60,16 +63,16 @@
         android:layout_marginEnd="24dp"
         android:backgroundTint="#858484"
         android:ems="10"
-        android:hint="Nuevo Producto"
+        android:hint="Nombre del Producto"
         android:inputType="textShortMessage|textPersonName|text"
         android:textColor="#393838"
         android:textColorHint="#858484"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:guidelineUseRtl="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelNombre_add" />
+        app:layout_constraintTop_toBottomOf="@+id/image_actualizar" />
 
     <EditText
         android:id="@+id/cajaPrecio_actualizar"
@@ -86,9 +89,26 @@
         android:textColor="#131313"
         android:textColorHint="#858484"
         android:textColorLink="#858484"
-        android:textSize="34sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelPrecio_actualizar" />
+
+    <EditText
+        android:id="@+id/cajaCodigo_actualizar"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#FFFFFF"
+        android:ems="10"
+        android:hint="0000000000000"
+        android:inputType="number"
+        android:textAlignment="textStart"
+        android:textColor="#494949"
+        android:textColorHint="#858484"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelCantidad_actualizar" />
 
     <TextView
         android:id="@+id/labelEuros_actualizar"
@@ -99,37 +119,22 @@
         android:text="EUROS"
         android:textAlignment="viewStart"
         android:textColor="#555555"
-        android:textSize="34sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/cajaPrecio_actualizar"
         app:layout_constraintTop_toBottomOf="@+id/labelPrecio_actualizar" />
-
-    <TextView
-        android:id="@+id/labelNombre_add"
-        style="@style/Widget.Material3.MaterialTimePicker.Display.HelperText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="16dp"
-        android:text="Nombre del Producto:"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:guidelineUseRtl="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_add" />
 
 
     <EditText
         android:id="@+id/cajaDescripcion_actualizar"
-        android:layout_width="365dp"
-        android:layout_height="92dp"
+        android:layout_width="361dp"
+        android:layout_height="71dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:backgroundTint="#858484"
         android:ems="10"
         android:inputType="textLongMessage|textPersonName"
+        android:textColor="#3E3E3E"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/labelDescripcion_actualizar" />
@@ -139,14 +144,46 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
-        android:background="@drawable/press_button"
-        android:text="Añadir a la cesta"
+        android:layout_marginBottom="8dp"
+        android:text="Actualizar"
         android:textSize="20sp"
         app:cornerRadius="@dimen/cardview_compat_inset_shadow"
+        app:layout_constraintBottom_toTopOf="@+id/botonCancel_actualizar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/botonImagen_actualizar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="32dp"
+        android:text="cambiar imagen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/botonCancel_actualizar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
+        android:text="Cancelar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_actualizar"
+        android:layout_width="98dp"
+        android:layout_height="91dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/cajaNombre_actualizar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cajaDescripcion_actualizar" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

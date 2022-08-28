@@ -25,11 +25,11 @@
         app:layout_constraintTop_toBottomOf="@+id/cajaNombre_add" />
 
     <TextView
-        android:id="@+id/labelCantidad_addInventario"
+        android:id="@+id/labelCantidad_add"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:text="Código de Barras:"
         android:textColor="#000000"
@@ -44,7 +44,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="Descripción:"
         android:textColor="#000000"
@@ -52,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cajaCodigo_addInventario" />
+        app:layout_constraintTop_toBottomOf="@+id/cajaCodigo_add" />
 
     <EditText
         android:id="@+id/cajaNombre_add"
@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_addInventario" />
+        app:layout_constraintTop_toBottomOf="@+id/image_add" />
 
     <EditText
         android:id="@+id/cajaPrecio_add"
@@ -94,11 +94,11 @@
         app:layout_constraintTop_toBottomOf="@+id/labelPrecio_add" />
 
     <EditText
-        android:id="@+id/cajaCodigo_addInventario"
+        android:id="@+id/cajaCodigo_add"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:backgroundTint="#FFFFFF"
         android:ems="10"
         android:hint="0000000000000"
@@ -108,7 +108,7 @@
         android:textColorHint="#858484"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/labelCantidad_addInventario" />
+        app:layout_constraintTop_toBottomOf="@+id/labelEuros_add" />
 
     <TextView
         android:id="@+id/labelEuros_add"
@@ -144,17 +144,17 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
         android:text="Guardar"
         android:textSize="20sp"
         app:cornerRadius="@dimen/cardview_compat_inset_shadow"
+        app:layout_constraintBottom_toTopOf="@+id/botonCancel_add"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cajaDescripcion_add" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/botonImagen_addInventario"
+        android:id="@+id/botonImagen_add"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
@@ -164,19 +164,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/botonCancel_addInventario"
+        android:id="@+id/botonCancel_add"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
         android:text="Cancelar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonGuardar_add" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/image_addInventario"
+        android:id="@+id/image_add"
         android:layout_width="98dp"
         android:layout_height="91dp"
         android:layout_marginStart="32dp"

@@ -20,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +37,7 @@ public class InventarioActivity extends AppCompatActivity {
     protected Toolbar toolbar;
     private Intent pasarPantalla;
     protected ListView lista1;
-    protected ImageButton botonAdd;
+    protected FloatingActionButton botonAdd;
     protected AdaptadorInventario adaptador;
     protected String id="";
     protected static String url = "https://vaticinal-center.000webhostapp.com/mostrarProductos.php";
@@ -55,7 +56,7 @@ public class InventarioActivity extends AppCompatActivity {
 
 
         lista1 = (ListView ) findViewById ( R.id.listViewProducto_inventario );
-        botonAdd = (ImageButton ) findViewById ( R.id.boton_add_inventario );
+        botonAdd = (FloatingActionButton ) findViewById ( R.id.botonAdd_inventario );
         listarProductos ();
         adaptador = new AdaptadorInventario ( this, productoArrayList );
         lista1.setAdapter ( adaptador );

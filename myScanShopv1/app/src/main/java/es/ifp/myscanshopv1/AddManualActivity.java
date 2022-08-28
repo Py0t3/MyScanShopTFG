@@ -40,11 +40,11 @@ public class AddManualActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        cajaNombre = (EditText ) findViewById ( R.id.cajaNombre_add );
-        cajaPrecio = (EditText ) findViewById ( R.id.cajaPrecio_add );
-        cajaDescripcion = (EditText ) findViewById ( R.id.cajaDescripcion_add );
+        cajaNombre = (EditText ) findViewById ( R.id.cajaNombre_actualizar );
+        cajaPrecio = (EditText ) findViewById ( R.id.cajaPrecio_actualizar );
+        cajaDescripcion = (EditText ) findViewById ( R.id.cajaDescripcion_actualizar );
 
-        botonAdd  =(Button )findViewById ( R.id.botonGuardar_add );
+        botonAdd  =(Button )findViewById ( R.id.botonGuardar_actualizar );
 
         botonAdd.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
