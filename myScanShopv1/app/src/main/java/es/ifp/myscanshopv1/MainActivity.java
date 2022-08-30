@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -52,9 +53,12 @@ public class MainActivity extends AppCompatActivity {
     protected String nombreUsuario;
     protected static String url = "https://vaticinal-center.000webhostapp.com/mostrarProductos.php";
     protected String urlBuscarProducto = "https://vaticinal-center.000webhostapp.com/buscarProducto.php";
+    protected  String urlCodigoBarras = "https://vaticinal-center.000webhostapp.com/codigoBarras.php";
     public static ArrayList<Producto> productoArrayList = new ArrayList<> (  );
     public static ArrayList<Producto> cajaArrayList = new ArrayList<> (  );
     protected AdapterGrid adapter;
+    private Bundle paquete;
+    protected static boolean respuestaCodigo= true;
 
     protected GridView grid;
     protected static ArrayList<String> cesta;
@@ -75,8 +79,14 @@ public class MainActivity extends AppCompatActivity {
         botonAdd = (Button )findViewById ( R.id.botonAddd_main );
         botonCaja = (Button )findViewById ( R.id.botonCaja_main );
         searchBar = (SearchView )findViewById ( R.id.searchBar_main );
-
         grid = (GridView )findViewById ( R.id.gridList_main );
+
+        paquete = getIntent ().getExtras ();
+        if(paquete!=null){
+
+            leerCodigo ( paquete.getString ( "codigo" ) );
+        }
+
         botonCaja.setText ( "TOTAL: " + CajaActivity.calcularTotal () + " EUROS" );
 
 
@@ -86,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
         adapter = new AdapterGrid ( this, productoArrayList );
         grid.setAdapter ( adapter );
         listarProductos ();
+
+
 
 
 
@@ -326,6 +338,91 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add ( stringRequest );
 
     }
+    public  void leerCodigo(String codigo){
 
+        StringRequest stringRequest = new StringRequest ( Request.Method.POST, urlCodigoBarras , new Response.Listener<String> ( ) {
+
+            @Override
+            public void onResponse ( String response ) {
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject ( response );
+                    String exito = jsonObject.getString ( "exito" );
+                    JSONArray jsonArray = jsonObject.getJSONArray ( ("datos") );
+
+                    if (exito.equals ( "1" )) {
+
+                        for (int i = 0; i < jsonArray.length ( ); i++) {
+
+                            JSONObject object = jsonArray.getJSONObject ( i );
+
+                            String id = object.getString ( "id" );
+                            String url_imagen = object.getString ( "url_imagen" );
+                            String nombre = object.getString ( "nombre" );
+                            String precio = object.getString ( "precio" );
+                            String codigo_barras = object.getString ( "codigo_barras" );
+                            String descripcion = object.getString ( "descripcion" );
+
+
+                            Producto p = new Producto ( id,url_imagen,nombre,precio,codigo_barras,descripcion);
+                            AlertDialog.Builder builder= new AlertDialog.Builder ( MainActivity.this );
+                            builder.setTitle ( p.getNombre ());
+                            builder.setMessage ( "P.V.P: " + p.getPrecio () + " EUROS\nDescripción: \n" + p.getDescripcion () );
+                            builder.setPositiveButton ( "AÑADIR A LA CESTA" , new DialogInterface.OnClickListener ( ) {
+                                @Override
+                                public void onClick ( DialogInterface dialogInterface , int i ) {
+
+
+                                    MainActivity.cajaArrayList.add ( p );
+                                    startActivity ( new Intent ( MainActivity.this, MainActivity.class ) );
+                                    finish ();
+                                }
+                            } );
+
+                            builder.setNeutralButton ( "Cancelar", null );
+                            AlertDialog dialog= builder.create();
+                            builder.show();
+
+                        }
+
+
+                    } else{
+                        Toast.makeText ( MainActivity.this , "Producto no registrado" , Toast.LENGTH_SHORT ).show ( );
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace ( );
+
+
+                    Toast.makeText ( MainActivity.this , e.getMessage ().toString () , Toast.LENGTH_LONG ).show ( );
+                }
+
+
+            }
+        } , new Response.ErrorListener ( ) {
+            @Override
+            public void onErrorResponse ( VolleyError error ) {
+
+                Toast.makeText ( MainActivity.this , error.getMessage (), Toast.LENGTH_SHORT ).show ( );
+            }
+        } ){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams () throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<> ( );
+
+                params.put ( "codigo_barras" , codigo );
+
+
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue ( this );
+        requestQueue.add ( stringRequest );
+
+
+    }
 
 }

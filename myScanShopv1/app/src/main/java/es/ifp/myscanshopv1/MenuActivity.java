@@ -36,7 +36,7 @@ public class MenuActivity extends AppCompatActivity {
         nombreUsuario = (TextView ) findViewById ( R.id.nombreUSer_menu );
 
 
-        nombreUsuario.setText ( "Usuario:" + Login.u.getNombre () );
+        nombreUsuario.setText ( "Usuario: " + Login.u.getNombre () );
 
         botonCerrarSesion.setOnClickListener ( new View.OnClickListener ( ) {
             @Override

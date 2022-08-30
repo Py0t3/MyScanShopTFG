@@ -108,15 +108,10 @@ public class AddProductoInventario extends AppCompatActivity {
 
                 nombre = cajaNombre.getText ( ).toString ( );
                 precio = cajaPrecio.getText ( ).toString ( );
-                urlImagen = "https://loremflickr.com/320/240/dog";
                 codigoBarras = cajaCodigo.getText ( ).toString ( );
                 descripcion = cajaDescripcion.getText ( ).toString ( );
 
-
-                //subirImagen ( fotoProducto, nombre );
-
                 insertarProducto (fotoProducto, urlImagen, nombre, precio, codigoBarras, descripcion );
-
 
             }
         } );
@@ -263,58 +258,6 @@ por lo que lo que cargará será una imagen de la galeria llamada con el método
                 params.put ( "precio" , precio );
                 params.put ( "codigo_barras" , codigo_barras );
                 params.put ( "descripcion" , descripcion );
-
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue ( this );
-        requestQueue.add ( stringRequest );
-    }
-    public void subirImagen(String imagen, String nombre){
-
-        StringRequest stringRequest = new StringRequest ( Request.Method.POST , urlSubirImagen , new Response.Listener<String> ( ) {
-            @Override
-            public void onResponse ( String response ) {
-
-                try {
-
-                    JSONObject jsonObject = new JSONObject ( response );
-                    String exito = jsonObject.getString ( "exito" );
-
-                    if (exito.equals ( "1" )) {
-                        Toast.makeText ( AddProductoInventario.this , "Producto insertado correctamente" , Toast.LENGTH_SHORT ).show ( );
-                        startActivity ( new Intent ( AddProductoInventario.this, InventarioActivity.class ) );
-                        finish ();
-                    }
-                    else{
-
-                        Toast.makeText ( AddProductoInventario.this , "No se pudo eliminar el producto" , Toast.LENGTH_SHORT ).show ( );
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace ( );
-
-                    Toast.makeText ( AddProductoInventario.this , e.getMessage ().toString () , Toast.LENGTH_LONG ).show ( );
-                }
-
-            }
-
-        } , new Response.ErrorListener ( ) {
-            @Override
-            public void onErrorResponse ( VolleyError error ) {
-
-                Toast.makeText ( AddProductoInventario.this , "Error" + error.getMessage (), Toast.LENGTH_SHORT ).show ( );
-            }
-        } ){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams () throws AuthFailureError {
-
-                Map<String, String> params = new HashMap<> ( );
-
-                params.put ( "imagen" , imagen );
-                params.put ( "nombre" , nombre );
 
                 return params;
             }

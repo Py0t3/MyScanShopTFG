@@ -89,7 +89,7 @@ public class Login extends AppCompatActivity {
 
                                     u = new Usuario ( id, user, pass, nombre, puesto );
                                     String nombreUsuario = u.getNombre ();
-                                    Toast.makeText ( Login.this , "Hola: " + nombreUsuario , Toast.LENGTH_SHORT ).show ( );
+                                    //Toast.makeText ( Login.this , "Hola: " + nombreUsuario , Toast.LENGTH_SHORT ).show ( );
 
                                 }
 

@@ -3,27 +3,37 @@ package es.ifp.myscanshopv1;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.zxing.client.android.Intents;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import clases.Producto;
 
 public class ScanActivity extends AppCompatActivity {
-    private String codigoLeido="";
-    protected Bundle paquete;
+    private static String codigoLeido="";
     protected Intent pasarPantalla;
-
-    protected static ArrayList<String> cesta;
-    protected String eurosPaquete="";
 
 
     @Override
@@ -31,60 +41,43 @@ public class ScanActivity extends AppCompatActivity {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_scan );
 
+        //new IntentIntegrator (this).initiateScan ();
+        IntentIntegrator integrador= new IntentIntegrator ( ScanActivity.this );
+        integrador.initiateScan ();
 
-        cesta = MainActivity.cesta;
-        new IntentIntegrator (this).initiateScan ();
-        paquete = getIntent ().getExtras ();
 
-        Toast.makeText ( this , eurosPaquete , Toast.LENGTH_SHORT ).show ( );
     }
-    @Override
-    protected void onActivityResult ( int requestCode , int resultCode , @Nullable Intent data ) {
-        super.onActivityResult ( requestCode , resultCode , data );
-        IntentResult result = IntentIntegrator.parseActivityResult ( requestCode, resultCode, data );
+    protected void onActivityResult( int requestCode, int resultCode, Intent data ) {
 
+        IntentResult result= IntentIntegrator.parseActivityResult ( requestCode, resultCode,data );
         codigoLeido= result.getContents ();
 
         if(result != null)
         {
-            Producto p = new Producto ( "","" ,"Producto escaneado","35.4","","afsjaflfsldfjslfsdfjl");
-            AlertDialog.Builder builder= new AlertDialog.Builder ( ScanActivity.this );
-            builder.setTitle ( p.getNombre ());
-            builder.setMessage ( "P.V.P: " + p.getPrecio () + " EUROS\nDescripcion: \n" + p.getDescripcion () );
-            builder.setPositiveButton ( "AÑADIR A LA CESTA" , new DialogInterface.OnClickListener ( ) {
-                @Override
-                public void onClick ( DialogInterface dialogInterface , int i ) {
-
-                    MainActivity.cajaArrayList.add ( p );
-                    pasarPantalla = new Intent ( ScanActivity.this, ScanActivity.class );
-                    startActivity ( pasarPantalla );
-
-
-                }
-            } );
-
-            builder.setNeutralButton ( "Cancelar", null );
-            AlertDialog dialog= builder.create();
-            builder.show();
-
             //si decidimos cancelar el escaneo o dar a un boton de volver
             if(result.getContents ()==null)
             {
                 Toast.makeText ( this , "Lectura cancelada" , Toast.LENGTH_SHORT ).show ( );
-                pasarPantalla = new Intent ( ScanActivity.this, es.ifp.myscanshopv1.MainActivity.class );
-                startActivity ( pasarPantalla );
+                pasarPantalla = new Intent ( ScanActivity.this, MainActivity.class);
+                startActivity(pasarPantalla);
+                finish();
+
+
             }
             else
             {
-
-
-
+                pasarPantalla = new Intent ( ScanActivity.this, MainActivity.class);
+                pasarPantalla.putExtra ( "codigo", codigoLeido );
+                startActivity(pasarPantalla);
+                finish ();
 
             }
         }
         super.onActivityResult ( requestCode , resultCode , data );
 
     }
+
+
     //Botón Volver Inferior
     @Override
     public void onBackPressed () {

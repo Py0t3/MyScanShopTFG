@@ -120,8 +120,8 @@ public class CajaActivity extends AppCompatActivity {
                     generarPdf();
                     //Limpia la cesta y deja los valores a 0
                     listaCaja = null;
-                    ScanActivity.cesta= null;
-                    MainActivity.cesta= null;
+                    //ScanActivity.cesta= null;
+                   // MainActivity.cesta= null;
                     pasarPantalla = new Intent (CajaActivity.this, MenuActivity.class);
                     startActivity ( pasarPantalla );
                     finish ();
