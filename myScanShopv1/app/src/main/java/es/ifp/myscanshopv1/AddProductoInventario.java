@@ -7,14 +7,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +37,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,16 +55,19 @@ public class AddProductoInventario extends AppCompatActivity {
     protected Button botonCancel;
     protected Intent pasarPantalla;
 
-    protected String nombre="";
-    protected String precio="";
-    protected String urlImagen="";
-    protected String codigoBarras="";
-    protected String descripcion="";
+    protected String nombre = "";
+    protected String precio = "";
+    protected String urlImagen = "";
+    protected String codigoBarras = "";
+    protected String descripcion = "";
     protected Uri ruta;
     protected String url = "https://vaticinal-center.000webhostapp.com/insertarProducto.php";
+    protected String urlSubirImagen = "https://vaticinal-center.000webhostapp.com/subirImagenProducto.php";
+    protected String fotoProducto;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    static final int RESULT_LOAD_IMAGE= 2;
+    static final int RESULT_LOAD_IMAGE = 2;
+    private int PICK_IMAGE_REQUEST = 1;
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
@@ -64,15 +75,14 @@ public class AddProductoInventario extends AppCompatActivity {
         setContentView ( R.layout.activity_add_producto_inventario );
 
 
-        imagen = (ImageView )findViewById ( R.id.image_add );
-        botonImagen =  (Button) findViewById ( R.id.botonImagen_add );
-        cajaNombre = (EditText ) findViewById ( R.id.cajaNombre_add );
-        cajaPrecio = (EditText ) findViewById ( R.id.cajaPrecio_add );
-        cajaCodigo = (EditText ) findViewById ( R.id.cajaCodigo_add );
-        cajaDescripcion = (EditText )findViewById ( R.id.cajaDescripcion_add );
-        botonGuardar = (Button ) findViewById ( R.id.botonGuardar_add );
-        botonCancel = (Button ) findViewById ( R.id.botonCancel_add );
-
+        imagen = ( ImageView ) findViewById ( R.id.image_add );
+        botonImagen = ( Button ) findViewById ( R.id.botonImagen_add );
+        cajaNombre = ( EditText ) findViewById ( R.id.cajaNombre_add );
+        cajaPrecio = ( EditText ) findViewById ( R.id.cajaPrecio_add );
+        cajaCodigo = ( EditText ) findViewById ( R.id.cajaCodigo_add );
+        cajaDescripcion = ( EditText ) findViewById ( R.id.cajaDescripcion_add );
+        botonGuardar = ( Button ) findViewById ( R.id.botonGuardar_add );
+        botonCancel = ( Button ) findViewById ( R.id.botonCancel_add );
 
 
         imagen.setImageResource ( R.drawable.logoxl );
@@ -83,7 +93,7 @@ public class AddProductoInventario extends AppCompatActivity {
 
                 if (checkPermission ( )) {
                     // Toast.makeText(this, "Permiso Aceptado", Toast.LENGTH_LONG).show();
-                    dispatchTakePictureIntent ();
+                    dispatchTakePictureIntent ( );
 
                 } else {
                     requestPermissions ( );
@@ -96,13 +106,17 @@ public class AddProductoInventario extends AppCompatActivity {
             @Override
             public void onClick ( View view ) {
 
-                nombre = cajaNombre.getText ().toString ();
-                precio = cajaPrecio.getText ().toString ();
+                nombre = cajaNombre.getText ( ).toString ( );
+                precio = cajaPrecio.getText ( ).toString ( );
                 urlImagen = "https://loremflickr.com/320/240/dog";
-                codigoBarras =  cajaCodigo.getText ().toString () ;
-                descripcion = cajaDescripcion.getText ().toString ();
+                codigoBarras = cajaCodigo.getText ( ).toString ( );
+                descripcion = cajaDescripcion.getText ( ).toString ( );
 
-                insertarProducto ( urlImagen, nombre, precio, codigoBarras, descripcion );
+
+                //subirImagen ( fotoProducto, nombre );
+
+                insertarProducto (fotoProducto, urlImagen, nombre, precio, codigoBarras, descripcion );
+
 
             }
         } );
@@ -111,39 +125,54 @@ public class AddProductoInventario extends AppCompatActivity {
             @Override
             public void onClick ( View view ) {
 
-                onBackPressed ();
+                onBackPressed ( );
             }
         } );
     }
+
     /*
 Método para pasar a la pantalla de la cámara y tomar una foto
 (código copiado de la API de android studio)
  */
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent( MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null)
-        {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+    private void dispatchTakePictureIntent () {
+        Intent takePictureIntent = new Intent ( MediaStore.ACTION_IMAGE_CAPTURE );
+        if (takePictureIntent.resolveActivity ( getPackageManager ( ) ) != null) {
+            startActivityForResult ( takePictureIntent , REQUEST_IMAGE_CAPTURE );
         }
     }
+
     /*En la opcion if coloca miniatura de la imagen captada (baja resolución). Hace "algo" con la foto tomada, en este
 caso la coloca como Bitmap
 En la opcion else if hacemos que coincida el entero con la variable estatica RESULT LOAD IMAGE
 por lo que lo que cargará será una imagen de la galeria llamada con el método getImageFromGalllery
  */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult ( requestCode , resultCode , data );
-
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras ( );
             Bitmap imageBitmap = ( Bitmap ) extras.get ( "data" );
+            fotoProducto = convertirImgString ( imageBitmap );
             imagen.setImageBitmap ( imageBitmap );
+
         }
-        else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK) {
-            ruta= data.getData ();
-            imagen.setImageURI ( ruta );
-        }
+    }
+
+
+    /*
+    El método por defecto crea un BitMap para usar la imagen pero no crea ningun File. Con el siguiente método
+    conseguimos guardar el archivo al menos de forma temporal.
+     */
+
+    public String convertirImgString(Bitmap bitmap){
+
+        ByteArrayOutputStream array = new ByteArrayOutputStream (  );
+        bitmap.compress ( Bitmap.CompressFormat.JPEG,100,array );
+        byte[] imagenByte = array.toByteArray ();
+        String imagenString = Base64.encodeToString ( imagenByte,Base64.DEFAULT );
+
+        return  imagenString;
     }
 
 
@@ -186,7 +215,7 @@ por lo que lo que cargará será una imagen de la galeria llamada con el método
             pasarPantalla = new Intent ( AddProductoInventario.this, AddProductoInventario.class );
         }
     }
-    public void insertarProducto(String url_imagen, String nombre, String precio, String codigo_barras, String descripcion){
+    public void insertarProducto(String imagen, String url_imagen, String nombre, String precio, String codigo_barras, String descripcion){
 
         StringRequest stringRequest = new StringRequest ( Request.Method.POST , url , new Response.Listener<String> ( ) {
             @Override
@@ -228,11 +257,64 @@ por lo que lo que cargará será una imagen de la galeria llamada con el método
 
                 Map<String, String> params = new HashMap<> ( );
 
+                params.put ( "imagen" , imagen );
                 params.put ( "url_imagen" , url_imagen );
                 params.put ( "nombre" , nombre );
                 params.put ( "precio" , precio );
                 params.put ( "codigo_barras" , codigo_barras );
                 params.put ( "descripcion" , descripcion );
+
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue ( this );
+        requestQueue.add ( stringRequest );
+    }
+    public void subirImagen(String imagen, String nombre){
+
+        StringRequest stringRequest = new StringRequest ( Request.Method.POST , urlSubirImagen , new Response.Listener<String> ( ) {
+            @Override
+            public void onResponse ( String response ) {
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject ( response );
+                    String exito = jsonObject.getString ( "exito" );
+
+                    if (exito.equals ( "1" )) {
+                        Toast.makeText ( AddProductoInventario.this , "Producto insertado correctamente" , Toast.LENGTH_SHORT ).show ( );
+                        startActivity ( new Intent ( AddProductoInventario.this, InventarioActivity.class ) );
+                        finish ();
+                    }
+                    else{
+
+                        Toast.makeText ( AddProductoInventario.this , "No se pudo eliminar el producto" , Toast.LENGTH_SHORT ).show ( );
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace ( );
+
+                    Toast.makeText ( AddProductoInventario.this , e.getMessage ().toString () , Toast.LENGTH_LONG ).show ( );
+                }
+
+            }
+
+        } , new Response.ErrorListener ( ) {
+            @Override
+            public void onErrorResponse ( VolleyError error ) {
+
+                Toast.makeText ( AddProductoInventario.this , "Error" + error.getMessage (), Toast.LENGTH_SHORT ).show ( );
+            }
+        } ){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams () throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<> ( );
+
+                params.put ( "imagen" , imagen );
+                params.put ( "nombre" , nombre );
 
                 return params;
             }

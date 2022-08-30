@@ -4,16 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/backgroundDefaultTFG"
     tools:context=".MenuActivity">
 
     <Button
         android:id="@+id/botonPdv_menuP"
-        android:layout_width="336dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="110dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="312dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/press_button"
         android:backgroundTint="@color/myScanShop"
         android:text="Punto de Venta"
@@ -24,65 +22,77 @@
 
     <Button
         android:id="@+id/botonInventario_menuP"
-        android:layout_width="0dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="32dp"
+        android:layout_width="312dp"
+        android:layout_height="58dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
         android:background="@drawable/press_button"
         android:backgroundTint="@color/myScanShop"
         android:text="Productos"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonPdv_menuP" />
 
     <Button
         android:id="@+id/botonUsuarios_menuP"
-        android:layout_width="0dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="32dp"
+        android:layout_width="312dp"
+        android:layout_height="58dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
         android:background="@drawable/press_button"
         android:backgroundTint="@color/myScanShop"
         android:text="Datos de Facturación"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonClientes_menuP" />
 
     <Button
         android:id="@+id/botonUsuarios_menuP2"
-        android:layout_width="0dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="32dp"
+        android:layout_width="312dp"
+        android:layout_height="58dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
         android:background="@drawable/press_button"
         android:backgroundTint="@color/myScanShop"
         android:text="Historial"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonUsuarios_menuP" />
 
     <Button
         android:id="@+id/botonClientes_menuP"
-        android:layout_width="0dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="32dp"
+        android:layout_width="312dp"
+        android:layout_height="58dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
         android:background="@drawable/press_button"
         android:backgroundTint="@color/myScanShop"
         android:text="Clientes"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonInventario_menuP" />
+
+    <Button
+        android:id="@+id/botonSesion_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:backgroundTint="@color/backgroundDefaultTFG"
+        android:text="cerrar sesión"
+        android:textColor="#E30808"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/nombreUSer_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Usuario: "
+        android:textColor="#504F4F"
+        app:layout_constraintBottom_toTopOf="@+id/botonSesion_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
