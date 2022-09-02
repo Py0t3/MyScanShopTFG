@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundDefaultTFG"
+    tools:context=".ActualizarClienteActivity">
+
+    <TextView
+        android:id="@+id/titulo_updateCliente"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal"
+        android:text="Actualizar Datos de Cliente"
+        android:textColor="@color/gris"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/labelNombre_updateCliente"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="@color/gris"
+        android:ems="10"
+        android:hint="Nombre y Apellidos"
+        android:inputType="textPersonName"
+        android:text="Nombre Del Cliente"
+        android:textColor="@color/gris"
+        android:textColorHint="@color/gris"
+        android:textColorLink="@color/gris"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titulo_updateCliente" />
+
+    <EditText
+        android:id="@+id/labelEmail_updateCliente"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="@color/gris"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:text="correo"
+        android:textColor="@color/gris"
+        android:textColorHint="@color/gris"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelNombre_updateCliente" />
+
+    <EditText
+        android:id="@+id/labelTlf_updateCliente"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="@color/gris"
+        android:ems="10"
+        android:hint="Teléfono"
+        android:inputType="phone"
+        android:text="6666666"
+        android:textColor="@color/gris"
+        android:textColorHint="@color/gris"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelEmail_updateCliente" />
+
+    <EditText
+        android:id="@+id/labelDireccion_updateCliente"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="@color/gris"
+        android:ems="10"
+        android:hint="Dirección postal"
+        android:inputType="textPostalAddress"
+        android:text="Dirección"
+        android:textColor="@color/gris"
+        android:textColorHint="@color/gris"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelTlf_updateCliente" />
+
+    <EditText
+        android:id="@+id/labelDni_updateCliente"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="@color/gris"
+        android:ems="10"
+        android:hint="Dni"
+        android:inputType="textPersonName"
+        android:text="Dni"
+        android:textColor="@color/gris"
+        android:textColorHint="@color/gris"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelDireccion_updateCliente" />
+
+    <Button
+        android:id="@+id/botonCancelar_updateCliente"
+        style="@style/BotonNuevo"
+        android:layout_width="220sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/press_button"
+        android:text="Cancelar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/botonActualizar_updateCliente"
+        android:layout_width="220sp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/press_button"
+        android:text="Actualizar Datos"
+        app:layout_constraintBottom_toTopOf="@+id/botonCancelar_updateCliente"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

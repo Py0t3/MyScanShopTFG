@@ -228,7 +228,7 @@ por lo que lo que cargará será una imagen de la galeria llamada con el método
                     }
                     else{
 
-                        Toast.makeText ( AddProductoInventario.this , "No se pudo eliminar el producto" , Toast.LENGTH_SHORT ).show ( );
+                        Toast.makeText ( AddProductoInventario.this , "No se pudo insertar el producto" , Toast.LENGTH_SHORT ).show ( );
                     }
 
 

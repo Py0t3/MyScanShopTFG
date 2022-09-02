@@ -6,7 +6,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.view.View;
@@ -54,6 +56,7 @@ public class CajaActivity extends AppCompatActivity {
     protected String euros="";
 
     String tituloText = "Factura";
+    protected  String datosFracturacion= "";
 
 
     @Override
@@ -71,7 +74,7 @@ public class CajaActivity extends AppCompatActivity {
         lista1 = (ListView ) findViewById ( R.id.lista_caja );
         totalFactura = (TextView )findViewById ( R.id.totalFactura_caja ) ;
 
-
+        recuperarDatosFacturacion ();
 
         listaCaja= new ArrayList<> (  );
 
@@ -153,6 +156,7 @@ public class CajaActivity extends AppCompatActivity {
         PdfDocument pdfDocument = new PdfDocument();
         Paint paint = new Paint();
         TextPaint titulo = new TextPaint();
+        TextPaint datosEmpresa = new TextPaint (  );
         TextPaint contenidoCompra = new TextPaint();
         TextPaint totalDescripcion = new TextPaint();
 
@@ -164,6 +168,14 @@ public class CajaActivity extends AppCompatActivity {
         titulo.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         titulo.setTextSize(20);
         canvas.drawText(tituloText, 10, 150, titulo);
+
+        datosEmpresa.setTypeface ( Typeface.create ( Typeface.DEFAULT, Typeface.NORMAL ) );
+        datosEmpresa.setTextSize (16 );
+        int j = 180;
+        for(int i = 0 ; i < Login.datosEmpresa.length ; i++) {
+            canvas.drawText(Login.datosEmpresa[i].toString (), 10, j,datosEmpresa);
+            j += 20;
+        }
 
         contenidoCompra.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         contenidoCompra.setTextSize(14);
@@ -239,5 +251,22 @@ public class CajaActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void recuperarDatosFacturacion(){
+
+        SharedPreferences preferences = getSharedPreferences ( "datosFacturacion", Context.MODE_PRIVATE );
+
+        Login.datosEmpresa[0] = preferences.getString("nombre","") ;
+        Login.datosEmpresa[1] = preferences.getString("nif","") ;
+        Login.datosEmpresa[2] = preferences.getString("adress","") ;
+        Login.datosEmpresa[3] = preferences.getString("cp","") ;
+        Login.datosEmpresa[4] =  preferences.getString("city","") ;
+        Login.datosEmpresa[5] = preferences.getString("pais","") ;
+        Login.datosEmpresa[6] = preferences.getString("tlf","")  ;
+        Login.datosEmpresa[7] = preferences.getString("email","")  ;
+
+    }
+
+
 
 }

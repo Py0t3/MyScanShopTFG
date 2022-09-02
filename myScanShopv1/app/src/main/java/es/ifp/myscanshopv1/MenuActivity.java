@@ -5,13 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -19,7 +14,7 @@ public class MenuActivity extends AppCompatActivity {
     protected Button botonPdV;
     protected Button botonInventario;
     protected Button botonClientes;
-    protected Button botonUsuarios, botonCerrarSesion;
+    protected Button botonDatos, botonCerrarSesion;
     protected TextView nombreUsuario;
 
 
@@ -31,7 +26,7 @@ public class MenuActivity extends AppCompatActivity {
         botonPdV = (Button ) findViewById ( R.id.botonPdv_menuP );
         botonInventario = (Button ) findViewById ( R.id.botonInventario_menuP);
         botonClientes = (Button ) findViewById ( R.id.botonClientes_menuP );
-        botonUsuarios = (Button ) findViewById ( R.id.botonUsuarios_menuP );
+        botonDatos = (Button ) findViewById ( R.id.botonUsuarios_menuP );
         botonCerrarSesion = (Button ) findViewById ( R.id.botonSesion_menu );
         nombreUsuario = (TextView ) findViewById ( R.id.nombreUSer_menu );
 
@@ -70,10 +65,18 @@ public class MenuActivity extends AppCompatActivity {
             }
         } );
 
-        botonUsuarios.setOnClickListener ( new View.OnClickListener ( ) {
+        botonDatos.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick ( View view ) {
-                startActivity ( new Intent ( MenuActivity.this, UsuariosActivity.class ) );
+                startActivity ( new Intent ( MenuActivity.this, DatosFacturacionActivity.class ) );
+                finish ();
+            }
+        } );
+
+        botonClientes.setOnClickListener ( new View.OnClickListener ( ) {
+            @Override
+            public void onClick ( View view ) {
+                startActivity ( new Intent ( MenuActivity.this, ClientesActivity.class ) );
                 finish ();
             }
         } );

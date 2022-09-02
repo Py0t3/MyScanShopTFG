@@ -20,6 +20,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyScanShop"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ActualizarClienteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InfoClienteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddNuevoClienteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ClientesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DatosFacturacionActivity"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/file_paths" />
@@ -36,9 +52,6 @@
 
         <activity
             android:name=".ActualizarProductoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UsuariosActivity"
             android:exported="false" />
         <activity
             android:name=".InfoProductoActivity"

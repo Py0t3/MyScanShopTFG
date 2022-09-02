@@ -34,7 +34,7 @@
         android:contextClickable="true"
         android:text="Punto de Venta"
         android:textAlignment="center"
-        android:textColor="#6A6A6A"
+        android:textColor="@color/backgroundDefaultTFG"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
@@ -105,7 +105,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/press_button"
-            android:backgroundTint="#7F9393" />
+            android:backgroundTint="#7F9393" >
+
+        </SearchView>
 
     </LinearLayout>
 

@@ -2,18 +2,31 @@ package clases;
 
 public class Cliente {
 
+    protected String id;
     protected String nombre;
-    protected int id;
     protected String email;
+    protected String tlf;
+    protected String direccion;
     protected String dni;
-    protected int tlf;
 
-    public Cliente ( String nombre , int id , String email , String dni , int tlf ) {
-        this.nombre = nombre;
+
+
+    public Cliente ( String id ,String nombre ,  String email , String tlf, String direccion, String dni ) {
         this.id = id;
+        this.nombre = nombre;
         this.email = email;
-        this.dni = dni;
         this.tlf = tlf;
+        this.direccion = direccion;
+        this.dni = dni;
+    }
+
+
+    public String getId () {
+        return id;
+    }
+
+    public void setId ( String id ) {
+        this.id = id;
     }
 
     public String getNombre () {
@@ -24,14 +37,6 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    public int getId () {
-        return id;
-    }
-
-    public void setId ( int id ) {
-        this.id = id;
-    }
-
     public String getEmail () {
         return email;
     }
@@ -40,19 +45,27 @@ public class Cliente {
         this.email = email;
     }
 
+    public String getTlf () {
+        return tlf;
+    }
+
+    public void setTlf ( String tlf ) {
+        this.tlf = tlf;
+    }
+
+    public String getDireccion () {
+        return direccion;
+    }
+
+    public void setDireccion ( String direccion ) {
+        this.direccion = direccion;
+    }
+
     public String getDni () {
         return dni;
     }
 
     public void setDni ( String dni ) {
         this.dni = dni;
-    }
-
-    public int getTlf () {
-        return tlf;
-    }
-
-    public void setTlf ( int tlf ) {
-        this.tlf = tlf;
     }
 }

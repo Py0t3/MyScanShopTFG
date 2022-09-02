@@ -39,6 +39,7 @@ public class Login extends AppCompatActivity {
     protected String url = "https://vaticinal-center.000webhostapp.com/checklogin.php";
     protected Intent intent;
     protected static Usuario u;
+    protected static  String datosEmpresa[];
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
@@ -57,7 +58,9 @@ public class Login extends AppCompatActivity {
         cajaPass = ( EditText ) findViewById ( R.id.cajaPass_login );
         botonEnter = ( Button ) findViewById ( R.id.botonEnter_login );
 
+
         recuperarPreferencias ();
+        datosEmpresa = new String[8];
 
         botonEnter.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
@@ -92,7 +95,7 @@ public class Login extends AppCompatActivity {
                                     //Toast.makeText ( Login.this , "Hola: " + nombreUsuario , Toast.LENGTH_SHORT ).show ( );
 
                                 }
-
+                                guardarPreferencias ();
                                 startActivity ( intent = new Intent (Login.this, MenuActivity.class ) );
                                 finish ( );
 

@@ -48,7 +48,6 @@ public class ActualizarProductoActivity extends AppCompatActivity {
     protected String url_imagen="";
     protected String codigo_barras="";
     protected String descripcion="";
-    protected Uri ruta;
     protected String urlInfo = "https://vaticinal-center.000webhostapp.com/seleccionarProducto.php";
     protected String urlActualizar = "https://vaticinal-center.000webhostapp.com/actualizarProducto.php";
 
@@ -230,6 +229,14 @@ public class ActualizarProductoActivity extends AppCompatActivity {
         };
         RequestQueue requestQueue = Volley.newRequestQueue ( this );
         requestQueue.add ( stringRequest );
+    }
+    //Botón Volver Inferior
+    @Override
+    public void onBackPressed () {
+        super.onBackPressed ( );
+        pasarPantalla = new Intent (ActualizarProductoActivity.this, InfoProductoActivity.class);
+        startActivity(pasarPantalla);
+        finish();
     }
 
 }
