@@ -76,7 +76,9 @@ public class MenuActivity extends AppCompatActivity {
         botonClientes.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick ( View view ) {
-                startActivity ( new Intent ( MenuActivity.this, ClientesActivity.class ) );
+                pasarPantalla =  new Intent ( MenuActivity.this, SeleccionarClienteActivity.class  );
+                pasarPantalla.putExtra ( "Activity", "menu" );
+                startActivity ( pasarPantalla );
                 finish ();
             }
         } );

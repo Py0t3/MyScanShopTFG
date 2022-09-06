@@ -60,9 +60,7 @@ public class AddProductoInventario extends AppCompatActivity {
     protected String urlImagen = "";
     protected String codigoBarras = "";
     protected String descripcion = "";
-    protected Uri ruta;
     protected String url = "https://vaticinal-center.000webhostapp.com/insertarProducto.php";
-    protected String urlSubirImagen = "https://vaticinal-center.000webhostapp.com/subirImagenProducto.php";
     protected String fotoProducto;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;

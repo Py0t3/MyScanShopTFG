@@ -29,6 +29,8 @@ public class AddNuevoClienteActivity extends AppCompatActivity {
     protected EditText nombreET, emailET, telefonoET, direccionET, dniET;
     protected Button botonGuardar, botonCancelar;
     protected Intent pasarPantalla;
+    protected Bundle paquete;
+    protected String activityOrigen;
     protected String urlInsertarCliente = "https://vaticinal-center.000webhostapp.com/insertarCliente.php";
 
     @Override
@@ -44,11 +46,18 @@ public class AddNuevoClienteActivity extends AppCompatActivity {
         botonGuardar = (Button ) findViewById ( R.id.botonAdd_addCliente );
         botonCancelar = (Button ) findViewById ( R.id.botonCancel_addCliente );
 
+        paquete = getIntent ().getExtras ();
+        if(paquete!=null){
+
+            activityOrigen = paquete.getString ( "Activity" );
+        }
+
         botonCancelar.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick ( View view ) {
 
-                pasarPantalla = new Intent ( AddNuevoClienteActivity.this, ClientesActivity.class );
+                pasarPantalla = new Intent ( AddNuevoClienteActivity.this, SeleccionarClienteActivity.class );
+                pasarPantalla.putExtra ( "Activity", activityOrigen );
                 startActivity ( pasarPantalla );
                 finish ();
             }
@@ -75,7 +84,9 @@ public class AddNuevoClienteActivity extends AppCompatActivity {
 
                             if (exito.equals ( "1" )) {
                                 Toast.makeText ( AddNuevoClienteActivity.this , "Cliente insertado correctamente" , Toast.LENGTH_SHORT ).show ( );
-                                startActivity ( new Intent ( AddNuevoClienteActivity.this, ClientesActivity.class ) );
+                                pasarPantalla = new Intent ( AddNuevoClienteActivity.this, SeleccionarClienteActivity.class );
+                                pasarPantalla.putExtra ( "Activity", activityOrigen );
+                                startActivity ( pasarPantalla );
                                 finish ();
                             }
                             else{

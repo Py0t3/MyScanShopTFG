@@ -112,7 +112,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onErrorResponse ( VolleyError error ) {
 
-                        Toast.makeText ( Login.this , error.getMessage ( ) , Toast.LENGTH_SHORT ).show ( );
+                        Toast.makeText ( Login.this ,"Error de conexión"+ error.getMessage ( ) , Toast.LENGTH_SHORT ).show ( );
                     }
                 } ) {
                     @Nullable

@@ -7,8 +7,8 @@
     android:background="@color/backgroundDefaultTFG" >
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="82dp"
+        android:layout_width="386dp"
+        android:layout_height="34dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
@@ -18,22 +18,13 @@
 
         <TextView
             android:id="@+id/label_nombre_cesta"
-            android:layout_width="210dp"
+            android:layout_width="207dp"
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:gravity="left|center_vertical"
+            android:gravity="center_horizontal|left|center_vertical"
             android:text="Nombre del producto"
-            android:textColor="#4C4B4B" />
-
-        <TextView
-            android:id="@+id/label_cant_cesta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="x1"
-            android:textColor="#494848"
+            android:textColor="@color/gris"
             android:textSize="16sp" />
 
         <TextView

@@ -9,6 +9,7 @@
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/drawable-hdpi/redondear_botones_pressed.xml" value="0.1395" />
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.109" />
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/drawable/boton_disabled.xml" value="0.1395" />
+        <entry key="..\:/TFG/myScanShopv1/app/src/main/res/drawable/boton_inhabilitado.xml" value="0.135" />
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/drawable/press_button.xml" value="0.1395" />
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/drawable/redondear_dos.xml" value="0.14" />
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/layout/activity_actualizar_cliente.xml" value="0.1703125" />
@@ -19,12 +20,14 @@
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/layout/activity_caja.xml" value="0.184375" />
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/layout/activity_clientes.xml" value="0.184375" />
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/layout/activity_datos_facturacion.xml" value="0.184375" />
+        <entry key="..\:/TFG/myScanShopv1/app/src/main/res/layout/activity_finalizar_venta.xml" value="0.184375" />
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/layout/activity_info_cliente.xml" value="0.184375" />
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/layout/activity_info_producto.xml" value="0.184375" />
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/layout/activity_inventario.xml" value="0.184375" />
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/layout/activity_login.xml" value="0.16666666666666666" />
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/layout/activity_menu.xml" value="0.184375" />
+        <entry key="..\:/TFG/myScanShopv1/app/src/main/res/layout/activity_seleccionar_cliente.xml" value="0.16666666666666666" />
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/layout/activity_splash.xml" value="0.184375" />
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/layout/activity_usuarios.xml" value="0.184375" />
         <entry key="..\:/TFG/myScanShopv1/app/src/main/res/layout/clientes_list_item.xml" value="0.3333333333333333" />
