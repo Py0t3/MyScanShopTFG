@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/botonPdv_menuP" />
 
     <Button
-        android:id="@+id/botonUsuarios_menuP"
+        android:id="@+id/botonDatos_menuP"
         android:layout_width="312dp"
         android:layout_height="58dp"
         android:layout_marginTop="24dp"
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/botonClientes_menuP" />
 
     <Button
-        android:id="@+id/botonUsuarios_menuP2"
+        android:id="@+id/botonHistorial_menu"
         android:layout_width="312dp"
         android:layout_height="58dp"
         android:layout_marginTop="24dp"
@@ -57,7 +57,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonUsuarios_menuP" />
+        app:layout_constraintTop_toBottomOf="@+id/botonDatos_menuP" />
 
     <Button
         android:id="@+id/botonClientes_menuP"

@@ -39,8 +39,8 @@
 
     <ImageView
         android:id="@+id/imagen_info"
-        android:layout_width="wrap_content"
-        android:layout_height="132dp"
+        android:layout_width="162dp"
+        android:layout_height="162dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,6 +99,7 @@
         android:layout_marginStart="75dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="75dp"
+        android:background="@drawable/press_button"
         android:text="volver"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,6 +112,7 @@
         android:layout_marginStart="75dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="75dp"
+        android:background="@drawable/press_button"
         android:text="EDITAR"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

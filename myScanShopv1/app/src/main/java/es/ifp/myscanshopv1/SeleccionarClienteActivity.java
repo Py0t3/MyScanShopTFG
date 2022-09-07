@@ -43,13 +43,12 @@ public class SeleccionarClienteActivity extends AppCompatActivity {
     protected Button botonSinId, botonNuevoCliente;
     protected AdaptadorClientes adaptador;
     protected ArrayList<Cliente>listaClientes = new ArrayList<> (  );
-    protected Cliente c;
     protected String urlMostrarClientes = "https://vaticinal-center.000webhostapp.com/mostrarClientes.php";
     protected String urlBuscarCliente = "https://vaticinal-center.000webhostapp.com/buscarCliente.php";
     protected Intent pasarPantalla;
     protected Bundle paquete;
     protected String activityOrigen;
-    protected static String id, nombreCliente;
+    public static Cliente c;
 
 
     @Override
@@ -95,15 +94,15 @@ public class SeleccionarClienteActivity extends AppCompatActivity {
             @Override
             public void onItemClick ( AdapterView<?> adapterView , View view , int i , long l ) {
 
-                Cliente c =(Cliente) adapterView.getItemAtPosition ( i );
+                c =(Cliente) adapterView.getItemAtPosition ( i );
                 AlertDialog.Builder builder= new AlertDialog.Builder ( SeleccionarClienteActivity.this );
                 builder.setTitle ( c.getNombre ());
-                builder.setMessage ( "Id de Cliente " + c.getId () + "\nNombre: " + c.getNombre () );
+                builder.setMessage ( "Id de Cliente " + c.getId () + "\nNombre: " + c.getNombre ()
+                        + "\nEmail: : " + c.getEmail () + "\nTeléfono: " + c.getTlf ()+ "\nDirección: : " + c.getDireccion ());
                 builder.setPositiveButton ( "SELECCIONAR" , new DialogInterface.OnClickListener ( ) {
                     @Override
                     public void onClick ( DialogInterface dialogInterface , int i ) {
-                        id = c.getId ();
-                        nombreCliente = c.getNombre ();
+
                         if(activityOrigen.equals ( "caja" )){
                             pasarPantalla = new Intent ( SeleccionarClienteActivity.this, CajaActivity.class );
                         }
@@ -116,6 +115,16 @@ public class SeleccionarClienteActivity extends AppCompatActivity {
 
                     }
                 } );
+                builder.setNegativeButton ( "EDITAR" , new DialogInterface.OnClickListener ( ) {
+                    @Override
+                    public void onClick ( DialogInterface dialogInterface , int i ) {
+                        pasarPantalla = new Intent ( SeleccionarClienteActivity.this, ActualizarClienteActivity.class );
+                        pasarPantalla.putExtra ( "id", c.getId () );
+                        pasarPantalla.putExtra ( "Activity", activityOrigen );
+                        startActivity ( pasarPantalla );
+                        finish ();
+                    }
+                } );
 
                 builder.setNeutralButton ( "Cancelar", null );
                 AlertDialog dialog= builder.create();
@@ -125,12 +134,13 @@ public class SeleccionarClienteActivity extends AppCompatActivity {
             }
         } );
 
+
+
         botonSinId.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick ( View view ) {
 
-                id = "1";
-                nombreCliente = "Cliente invitado";
+                c = new Cliente ( "0","Cliente Invitado","","","","" );
                 if(activityOrigen.equals ( "caja" )){
                     pasarPantalla = new Intent ( SeleccionarClienteActivity.this, CajaActivity.class );
                 }

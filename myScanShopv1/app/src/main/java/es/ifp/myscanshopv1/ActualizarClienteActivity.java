@@ -30,12 +30,13 @@ import clases.Cliente;
 public class ActualizarClienteActivity extends AppCompatActivity {
 
     protected EditText labelNombre, labelEmail, labelTlf, labelDireccion, labelDni;
-    protected Button botonActualizar, botonCancelar;
+    protected Button botonActualizar, botonCancelar, botonBorrar;
     protected Intent pasarPantalla;
     protected Bundle paquete;
     protected String urlActualizarCliente= "https://vaticinal-center.000webhostapp.com/actualizarCliente.php";
     protected String urlSeleccionarCliente= "https://vaticinal-center.000webhostapp.com/seleccionarCliente.php";
-    protected String id, nombre, email, telefono, direccion, dni;
+    protected String urlBorrarCliente= "https://vaticinal-center.000webhostapp.com/eliminarCliente.php";
+    protected String id, nombre, email, telefono, direccion, dni, activityOrigen;
 
 
     @Override
@@ -50,11 +51,14 @@ public class ActualizarClienteActivity extends AppCompatActivity {
         labelDni = (EditText ) findViewById ( R.id.labelDni_updateCliente );
         botonActualizar = (Button ) findViewById ( R.id.botonActualizar_updateCliente );
         botonCancelar = (Button ) findViewById ( R.id.botonCancelar_updateCliente );
+        botonBorrar = (Button ) findViewById ( R.id.botonBorrar_updateCliente );
 
         paquete = getIntent ().getExtras ();
         if(paquete!=null){
 
             id = paquete.getString ( "id" );
+            activityOrigen = paquete.getString ( "Activity" ) ;
+
 
             seleccionarCliente ();
         }
@@ -64,7 +68,9 @@ public class ActualizarClienteActivity extends AppCompatActivity {
             @Override
             public void onClick ( View view ) {
 
-                startActivity ( new Intent ( ActualizarClienteActivity.this, ClientesActivity.class ) );
+                pasarPantalla = new Intent ( ActualizarClienteActivity.this, SeleccionarClienteActivity.class );
+                pasarPantalla.putExtra ( "Activity", activityOrigen );
+                startActivity ( pasarPantalla );
                 finish ();
             }
         } );
@@ -83,6 +89,16 @@ public class ActualizarClienteActivity extends AppCompatActivity {
 
             }
         } );
+
+        botonBorrar.setOnClickListener ( new View.OnClickListener ( ) {
+            @Override
+            public void onClick ( View view ) {
+
+                borrarCliente ();
+            }
+        } );
+
+
     }
     public  void seleccionarCliente(){
 
@@ -115,6 +131,8 @@ public class ActualizarClienteActivity extends AppCompatActivity {
                             labelTlf.setText ( c.getTlf () );
                             labelDireccion.setText ( c.getDireccion () );
                             labelDni.setText ( c.getDni () );
+
+
 
 
                         }
@@ -164,8 +182,10 @@ public class ActualizarClienteActivity extends AppCompatActivity {
                     String exito = jsonObject.getString ( "exito" );
 
                     if (exito.equals ( "1" )) {
-                        Toast.makeText ( ActualizarClienteActivity.this , "Producto editado correctamente" , Toast.LENGTH_SHORT ).show ( );
-                        startActivity ( new Intent ( ActualizarClienteActivity.this, ClientesActivity.class ) );
+                        Toast.makeText ( ActualizarClienteActivity.this , "Datos actualizados correctamente" , Toast.LENGTH_SHORT ).show ( );
+                        pasarPantalla = new Intent ( ActualizarClienteActivity.this, SeleccionarClienteActivity.class );
+                        pasarPantalla.putExtra ( "Activity", activityOrigen );
+                        startActivity ( pasarPantalla );
                         finish ();
                     }
                     else{
@@ -208,11 +228,65 @@ public class ActualizarClienteActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue ( this );
         requestQueue.add ( stringRequest );
     }
+
+    public void borrarCliente(){
+        StringRequest stringRequest = new StringRequest ( Request.Method.POST , urlBorrarCliente , new Response.Listener<String> ( ) {
+            @Override
+            public void onResponse ( String response ) {
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject ( response );
+                    String exito = jsonObject.getString ( "exito" );
+
+                    if (exito.equals ( "1" )) {
+                        Toast.makeText ( ActualizarClienteActivity.this , "Cliente borrado correctamente" , Toast.LENGTH_SHORT ).show ( );
+                        pasarPantalla = new Intent ( ActualizarClienteActivity.this, SeleccionarClienteActivity.class );
+                        pasarPantalla.putExtra ( "Activity", activityOrigen );
+                        startActivity ( pasarPantalla );
+                        finish ();
+                    }
+                    else{
+
+                        Toast.makeText ( ActualizarClienteActivity.this , "No se pudieron actualizar los datos" , Toast.LENGTH_SHORT ).show ( );
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace ( );
+
+                    Toast.makeText ( ActualizarClienteActivity.this , e.getMessage ().toString () , Toast.LENGTH_LONG ).show ( );
+                }
+
+            }
+
+        } , new Response.ErrorListener ( ) {
+            @Override
+            public void onErrorResponse ( VolleyError error ) {
+
+            }
+        } ){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams () throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<> ( );
+                params.put ( "id" , id );
+
+
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue ( this );
+        requestQueue.add ( stringRequest );
+    }
+
     //Botón Volver Inferior
     @Override
     public void onBackPressed () {
         super.onBackPressed ( );
-        pasarPantalla = new Intent (ActualizarClienteActivity.this, InfoClienteActivity.class);
+        pasarPantalla = new Intent (ActualizarClienteActivity.this, SeleccionarClienteActivity.class);
+        pasarPantalla.putExtra ( "Activity", activityOrigen );
         startActivity(pasarPantalla);
         finish();
     }

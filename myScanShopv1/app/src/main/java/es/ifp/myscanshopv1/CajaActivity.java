@@ -65,6 +65,7 @@ import clases.Producto;
 public class CajaActivity extends AppCompatActivity {
 
     private Intent pasarPantalla;
+    protected Toolbar toolbar;
     protected TextView totalFactura;
     protected Button botonFactura, botonCliente;
     protected ListView lista1;
@@ -74,7 +75,7 @@ public class CajaActivity extends AppCompatActivity {
     protected Producto p;
     protected String numFactura= "";
     protected int numEnteroFactura = 0;
-    public static String idCliente ="";
+    public static String facturaNombre ="";
     protected String euros="";
     protected String urlRegistrarFactura="https://vaticinal-center.000webhostapp.com/registrarVenta.php";
     protected String urlobtenerId="https://vaticinal-center.000webhostapp.com/obtenerIdVenta.php";
@@ -86,6 +87,11 @@ public class CajaActivity extends AppCompatActivity {
     protected void onCreate ( Bundle savedInstanceState ) {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_caja );
+        //Sustitución de la actionbar por defecto por una customizada
+        toolbar = ( Toolbar ) findViewById ( R.id.toolbar_caja );
+        setSupportActionBar(toolbar);
+        getSupportActionBar ().setDisplayShowTitleEnabled ( false );
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         botonFactura = (Button ) findViewById ( R.id.botonFactura_caja );
         botonCliente = (Button ) findViewById ( R.id.botonIdCliente_caja );
@@ -106,9 +112,9 @@ public class CajaActivity extends AppCompatActivity {
         lista1.setAdapter ( adaptador );
 
         paquete = getIntent ().getExtras ();
-        if(SeleccionarClienteActivity.id!=null){
+        if(SeleccionarClienteActivity.c!=null){
 
-            botonCliente.setText ( SeleccionarClienteActivity.nombreCliente );
+            botonCliente.setText ( SeleccionarClienteActivity.c.getNombre () );
             if(!MainActivity.cajaArrayList.isEmpty ())
             {
                 botonFactura.setEnabled ( true );
@@ -285,7 +291,7 @@ public class CajaActivity extends AppCompatActivity {
 
         //Crea un archivo nuevo. El nombre del archivo se alcmacena en la variable facturaNombre para
         //después subirlo al servidor
-        String facturaNombre = "Factura"+numEnteroFactura+".pdf";
+        facturaNombre = "Factura"+numEnteroFactura+".pdf";
         //String facturaNombre2 = "FacturaNombre"+numEnteroFactura+".pdf";
         File file = new File(getExternalFilesDir ( null ),facturaNombre );
         try {
@@ -295,7 +301,7 @@ public class CajaActivity extends AppCompatActivity {
             byte [] bytes = Files.readAllBytes(file.toPath());
             //Se codifica a String en formato base64
             String facturaString = Base64.encodeToString ( bytes, Base64.DEFAULT );
-            registrarVenta ( Login.u.getId (), SeleccionarClienteActivity.id, facturaString, facturaNombre );
+            registrarVenta ( Login.u.getId (), SeleccionarClienteActivity.c.getId (),SeleccionarClienteActivity.c.getNombre () ,facturaString, facturaNombre );
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -362,7 +368,7 @@ public class CajaActivity extends AppCompatActivity {
         Login.datosEmpresa[7] = preferences.getString("email","")  ;
 
     }
-    public void registrarVenta( String vendedor, String cliente, String factura, String facturaNombre) {
+    public void registrarVenta( String id_vendedor, String id_cliente,String nombre_cliente , String factura, String facturaNombre) {
 
 
         StringRequest stringRequest = new StringRequest ( Request.Method.POST , urlRegistrarFactura , new Response.Listener<String> ( ) {
@@ -410,8 +416,9 @@ public class CajaActivity extends AppCompatActivity {
 
                 Map<String, String> params = new HashMap<> ( );
 
-                params.put ( "vendedor" , vendedor );
-                params.put ( "cliente" , cliente );
+                params.put ( "id_vendedor" , id_vendedor );
+                params.put ( "id_cliente" , id_cliente );
+                params.put ( "nombre_cliente" , nombre_cliente );
                 params.put ( "factura", factura );
                 params.put ( "facturaNombre", facturaNombre );
 
@@ -448,19 +455,33 @@ public class CajaActivity extends AppCompatActivity {
 
     private void enviarCorreo(){
 
-               /*
-                   Código para abrir gestor de correo y enviar factura
-                    */
-        startActivity (new Intent( CajaActivity.this, MenuActivity.class) );
-        finish ();
-        MainActivity.cajaArrayList.clear ();
-        Intent intent  =new Intent(Intent.ACTION_SENDTO);
-        intent.setData ( Uri.parse ( "mailto:") );
-        intent.putExtra ( Intent.EXTRA_EMAIL, new String[]{"pelfmail@gmail.com"} );
-        intent.putExtra ( Intent.EXTRA_SUBJECT, "Su ticket de compra" );
-        intent.putExtra ( Intent.EXTRA_TEXT, "https://vaticinal-center.000webhostapp.com/facturas/Factura32.pdf" );
-        startActivity ( intent );
-        Toast.makeText ( CajaActivity.this , "Factura generada correctamente" , Toast.LENGTH_SHORT ).show ( );
+        /*
+          Código para abrir gestor de correo y enviar factura
+         */
+        if(SeleccionarClienteActivity.c.getEmail ().equals ( "" ) )
+        {
+            startActivity (new Intent( CajaActivity.this, MenuActivity.class) );
+            finish ();
+            MainActivity.cajaArrayList.clear ();
+            SeleccionarClienteActivity.c = null;
+            Toast.makeText ( CajaActivity.this , "Factura generada correctamente" , Toast.LENGTH_SHORT ).show ( );
+
+        }
+        else{
+            startActivity (new Intent( CajaActivity.this, MenuActivity.class) );
+            finish ();
+            Intent intent  =new Intent(Intent.ACTION_SENDTO);
+            intent.setData ( Uri.parse ( "mailto:") );
+            intent.putExtra ( Intent.EXTRA_EMAIL, new String[]{SeleccionarClienteActivity.c.getEmail ()} );
+            intent.putExtra ( Intent.EXTRA_SUBJECT, "Su ticket de compra" );
+            intent.putExtra ( Intent.EXTRA_TEXT, "Hola, en el siguiente enlace, podrá descargar el ticket de su compra." +
+                    "\n https://vaticinal-center.000webhostapp.com/facturas/" + facturaNombre );
+            startActivity ( intent );
+            MainActivity.cajaArrayList.clear ();
+            SeleccionarClienteActivity.c = null;
+            Toast.makeText ( CajaActivity.this , "Factura generada correctamente" , Toast.LENGTH_SHORT ).show ( );
+
+        }
 
 
     }

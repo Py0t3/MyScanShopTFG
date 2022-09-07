@@ -141,11 +141,12 @@
 
     <Button
         android:id="@+id/botonGuardar_actualizar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="263dp"
+        android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/press_button"
         android:text="Actualizar"
         android:textSize="20sp"
         app:cornerRadius="@dimen/cardview_compat_inset_shadow"
@@ -159,17 +160,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="32dp"
+        android:background="@drawable/press_button"
         android:text="cambiar imagen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/botonCancel_actualizar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/BotonNuevo"
+        android:layout_width="253dp"
+        android:layout_height="44dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="32dp"
+        android:background="@drawable/press_button"
         android:text="Cancelar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

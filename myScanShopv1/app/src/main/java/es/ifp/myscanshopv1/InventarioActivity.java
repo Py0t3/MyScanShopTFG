@@ -155,7 +155,6 @@ public class InventarioActivity extends AppCompatActivity {
         super.onBackPressed ( );
         pasarPantalla = new Intent (InventarioActivity.this, MenuActivity.class);
         startActivity(pasarPantalla);
-        //overridePendingTransition ( R.anim.right_in, R.anim.right_out );
         finish();
     }
 

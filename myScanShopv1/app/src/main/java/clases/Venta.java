@@ -2,50 +2,29 @@ package clases;
 
 public class Venta {
 
-    protected int id;
-    protected int idVendedor;
-    protected int idCliente;
-    protected String urlFactura;
+    protected String id;
     protected String fecha;
+    protected String idVendedor;
+    protected String idCliente;
+    protected String nombreCliente;
+    protected String factura;
 
-    public Venta ( int id , int idVendedor , int idCliente , String urlFactura , String fecha ) {
+    public Venta (String id , String fecha ,String idVendedor , String idCliente ,String nombreCliente ,String factura ) {
         this.id = id;
+        this.fecha = fecha;
         this.idVendedor = idVendedor;
         this.idCliente = idCliente;
-        this.urlFactura = urlFactura;
-        this.fecha = fecha;
+        this.nombreCliente = nombreCliente;
+        this.factura = factura;
+
     }
 
-    public int getId () {
+    public String getId () {
         return id;
     }
 
-    public void setId ( int id ) {
+    public void setId ( String id ) {
         this.id = id;
-    }
-
-    public int getIdVendedor () {
-        return idVendedor;
-    }
-
-    public void setIdVendedor ( int idVendedor ) {
-        this.idVendedor = idVendedor;
-    }
-
-    public int getIdCliente () {
-        return idCliente;
-    }
-
-    public void setIdCliente ( int idCliente ) {
-        this.idCliente = idCliente;
-    }
-
-    public String getUrlFactura () {
-        return urlFactura;
-    }
-
-    public void setUrlFactura ( String urlFactura ) {
-        this.urlFactura = urlFactura;
     }
 
     public String getFecha () {
@@ -55,4 +34,37 @@ public class Venta {
     public void setFecha ( String fecha ) {
         this.fecha = fecha;
     }
+
+    public String getIdVendedor () {
+        return idVendedor;
+    }
+
+    public void setIdVendedor ( String idVendedor ) {
+        this.idVendedor = idVendedor;
+    }
+
+    public String getIdCliente () {
+        return idCliente;
+    }
+
+    public void setIdCliente ( String idCliente ) {
+        this.idCliente = idCliente;
+    }
+
+    public String getNombreCliente () {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente ( String nombreCliente ) {
+        this.nombreCliente = nombreCliente;
+    }
+
+    public String getFactura () {
+        return factura;
+    }
+
+    public void setFactura ( String factura ) {
+        this.factura = factura;
+    }
 }
+

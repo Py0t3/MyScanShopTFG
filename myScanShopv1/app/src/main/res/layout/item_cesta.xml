@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/backgroundDefaultTFG" >
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundDefaultTFG">
 
     <LinearLayout
-        android:layout_width="386dp"
-        android:layout_height="34dp"
+        android:layout_width="394dp"
+        android:layout_height="47dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
@@ -18,24 +18,23 @@
 
         <TextView
             android:id="@+id/label_nombre_cesta"
-            android:layout_width="207dp"
+            android:layout_width="232dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:gravity="center_horizontal|left|center_vertical"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical"
             android:text="Nombre del producto"
             android:textColor="@color/gris"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/label_precio_cesta"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_horizontal|center_vertical"
+            android:gravity="right|center_horizontal|center_vertical"
             android:text="0.00"
             android:textColor="#4A4A4A"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/label_moneda_cesta"
@@ -45,7 +44,7 @@
             android:gravity="center_horizontal|center_vertical"
             android:text="EUROS"
             android:textColor="#4E4E4E"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,7 +14,7 @@ public class MenuActivity extends AppCompatActivity {
     protected Button botonPdV;
     protected Button botonInventario;
     protected Button botonClientes;
-    protected Button botonDatos, botonCerrarSesion;
+    protected Button botonDatos, botonCerrarSesion, botonHistorial;
     protected TextView nombreUsuario;
 
 
@@ -26,7 +26,8 @@ public class MenuActivity extends AppCompatActivity {
         botonPdV = (Button ) findViewById ( R.id.botonPdv_menuP );
         botonInventario = (Button ) findViewById ( R.id.botonInventario_menuP);
         botonClientes = (Button ) findViewById ( R.id.botonClientes_menuP );
-        botonDatos = (Button ) findViewById ( R.id.botonUsuarios_menuP );
+        botonDatos = (Button ) findViewById ( R.id.botonDatos_menuP );
+        botonHistorial = (Button ) findViewById ( R.id.botonHistorial_menu );
         botonCerrarSesion = (Button ) findViewById ( R.id.botonSesion_menu );
         nombreUsuario = (TextView ) findViewById ( R.id.nombreUSer_menu );
 
@@ -36,9 +37,6 @@ public class MenuActivity extends AppCompatActivity {
         botonCerrarSesion.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick ( View view ) {
-
-
-
                 Login.u = null;
                 startActivity ( new Intent ( MenuActivity.this, Login.class ) );
                 finish ();
@@ -78,6 +76,14 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick ( View view ) {
                 pasarPantalla =  new Intent ( MenuActivity.this, SeleccionarClienteActivity.class  );
                 pasarPantalla.putExtra ( "Activity", "menu" );
+                startActivity ( pasarPantalla );
+                finish ();
+            }
+        } );
+        botonHistorial.setOnClickListener ( new View.OnClickListener ( ) {
+            @Override
+            public void onClick ( View view ) {
+                pasarPantalla =  new Intent ( MenuActivity.this, HistorialActivity.class  );
                 startActivity ( pasarPantalla );
                 finish ();
             }
