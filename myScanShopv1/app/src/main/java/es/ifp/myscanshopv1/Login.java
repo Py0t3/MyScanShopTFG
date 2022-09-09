@@ -3,12 +3,16 @@ package es.ifp.myscanshopv1;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,10 +40,11 @@ public class Login extends AppCompatActivity {
     protected Button botonEnter;
     protected String nombre="";
     protected String pass="";
-    protected String url = "https://vaticinal-center.000webhostapp.com/checklogin.php";
+    protected String url = "https://vaticinal-center.000webhostapp.com/comprobarLogin.php";
     protected Intent intent;
     public static Usuario u;
     protected static  String datosEmpresa[];
+    protected TextView registro;
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
@@ -57,9 +62,10 @@ public class Login extends AppCompatActivity {
         cajaUser = ( EditText ) findViewById ( R.id.cajaUser_login );
         cajaPass = ( EditText ) findViewById ( R.id.cajaPass_login );
         botonEnter = ( Button ) findViewById ( R.id.botonEnter_login );
-
+        registro = ( TextView )findViewById ( R.id.registro_login );
 
         recuperarPreferencias ();
+
         datosEmpresa = new String[8];
 
         botonEnter.setOnClickListener ( new View.OnClickListener ( ) {
@@ -134,6 +140,17 @@ public class Login extends AppCompatActivity {
 
             }
         });
+
+        registro.setOnClickListener ( new View.OnClickListener ( ) {
+            @Override
+            public void onClick ( View view ) {
+
+
+                registro.setPaintFlags ( Paint.UNDERLINE_TEXT_FLAG );
+                startActivity ( new Intent(Login.this, RegistroActivity.class) );
+                finish ();
+            }
+        } );
     }
     private void guardarPreferencias(){
 

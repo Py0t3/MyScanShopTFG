@@ -205,11 +205,32 @@ public class CajaActivity extends AppCompatActivity {
         //Datos de la empresa
         datosEmpresa.setTypeface ( Typeface.create ( Typeface.DEFAULT, Typeface.NORMAL ) );
         datosEmpresa.setTextSize (16 );
-        /*int j = 130;
-        for(int i = 1 ; i < Login.datosEmpresa.length ; i++) {
-            canvas.drawText(Login.datosEmpresa[i].toString (), 50, j,datosEmpresa);
-            j += 20;
-        }*/
+        if(Login.datosEmpresa[0].equals ( "" )){
+
+            Login.datosEmpresa[0] = "Mi empresa";
+        }
+        if(Login.datosEmpresa[1].equals ( "" )){
+            Login.datosEmpresa[1] = "00000000X";
+        }
+        if(Login.datosEmpresa[2].equals ( "" )){
+            Login.datosEmpresa[2] = "Calle 0000 sin número";
+        }
+        if(Login.datosEmpresa[3].equals ( "" )) {
+            Login.datosEmpresa[3] = "00000";
+        }
+        if(Login.datosEmpresa[4].equals ( "" )){
+            Login.datosEmpresa[4] = "XXXXX";
+        }
+        if(Login.datosEmpresa[5].equals ( "" )){
+            Login.datosEmpresa[5] = "XXXXX";
+        }
+        if(Login.datosEmpresa[6].equals ( "" )){
+            Login.datosEmpresa[6] = "00000000";
+        }
+        if(Login.datosEmpresa[7].equals ( "" )){
+            Login.datosEmpresa[7] = "empresa@mail.com";
+        }
+
         canvas.drawText ( "NIF: "+ Login.datosEmpresa[1].toString (), 50, 130, datosEmpresa );
         canvas.drawText (  Login.datosEmpresa[2].toString (), 50, 150, datosEmpresa );
         canvas.drawText (  Login.datosEmpresa[3].toString () + " , "+ Login.datosEmpresa[4], 50, 170, datosEmpresa );

@@ -53,19 +53,71 @@ public class DatosFacturacionActivity extends AppCompatActivity {
             @Override
             public void onClick ( View view ) {
 
-                Login.datosEmpresa[0] = nombreEmpresa.getText ().toString ();
-                Login.datosEmpresa[1] = nifEmpresa.getText ().toString ();
-                Login.datosEmpresa[2] = direccionEmpresa.getText ().toString ();
-                Login.datosEmpresa[3] = cpEmpresa.getText ().toString ();
-                Login.datosEmpresa[4] = poblacionEmpresa.getText ().toString ();
-                Login.datosEmpresa[5] = paisEmpresa.getText ().toString ();
-                Login.datosEmpresa[6] = tlfEmpresa.getText ().toString ();
-                Login.datosEmpresa[7] = emailEmpresa.getText ().toString ();
+
+
+                if(nombreEmpresa.getText ().toString ().equals ( "" )){
+                    Login.datosEmpresa[0] = "Mi empresa";
+                }else{
+                    Login.datosEmpresa[0] = nombreEmpresa.getText ().toString ();
+                }
+                if(nombreEmpresa.getText ().toString ().equals ( "" )){
+                    Login.datosEmpresa[1] = "00000000X";
+                }else{
+                    Login.datosEmpresa[1] = nifEmpresa.getText ().toString ();
+                }
+                if(direccionEmpresa.getText ().toString ().equals ( "" )){
+                     Login.datosEmpresa[2] = "Calle 0000 sin número";
+                }else{
+                    Login.datosEmpresa[2] = direccionEmpresa.getText ().toString ();
+                }
+                if(cpEmpresa.getText ().toString ().equals ( "" )){
+                    Login.datosEmpresa[3] = "00000";
+                }else{
+                    Login.datosEmpresa[3] = cpEmpresa.getText ().toString ();
+                }
+                if(poblacionEmpresa.getText ().toString ().equals ( "" )){
+                    Login.datosEmpresa[4] = "XXXXX";
+                }else{
+                    Login.datosEmpresa[4] = poblacionEmpresa.getText ().toString ();
+                }
+                if(paisEmpresa.getText ().toString ().equals ( "" )){
+                    Login.datosEmpresa[5] = "XXXXX";
+                }else{
+                    Login.datosEmpresa[5] = paisEmpresa.getText ().toString ();
+                }
+                if(tlfEmpresa.getText ().toString ().equals ( "" )){
+                    Login.datosEmpresa[6] = "00000000";
+                }else{
+                    Login.datosEmpresa[6] = tlfEmpresa.getText ().toString ();
+                }
+                if(emailEmpresa.getText ().toString ().equals ( "" )){
+                    Login.datosEmpresa[7] = emailEmpresa.getText ().toString ();
+                }else{
+                    Login.datosEmpresa[7] = "empresa@mail.com";
+                }
+
+
                 guardarPreferencias ();
                 Toast.makeText ( DatosFacturacionActivity.this , "Datos guardados correctamente" , Toast.LENGTH_SHORT ).show ( );
                 pasarPantalla = new Intent ( DatosFacturacionActivity.this, MenuActivity.class );
                 startActivity ( pasarPantalla );
                 finish ();
+
+            }
+        } );
+
+        botonBorrar.setOnClickListener ( new View.OnClickListener ( ) {
+            @Override
+            public void onClick ( View view ) {
+
+                nombreEmpresa.setText ( "" );
+                nifEmpresa.setText ( "" );
+                direccionEmpresa.setText ( "" );
+                cpEmpresa.setText ( "" );
+                poblacionEmpresa.setText ( "" );
+                paisEmpresa.setText ( "" );
+                tlfEmpresa.setText ( "" );
+                emailEmpresa.setText ( "" );
 
             }
         } );
@@ -101,6 +153,7 @@ public class DatosFacturacionActivity extends AppCompatActivity {
         editor.commit ();
     }
     private void recuperarPreferencias(){
+
         SharedPreferences preferences = getSharedPreferences ( "datosFacturacion", Context.MODE_PRIVATE );
         nombreEmpresa.setText ( preferences.getString("nombre","") );
         nifEmpresa.setText ( preferences.getString("nif","") );
@@ -110,6 +163,8 @@ public class DatosFacturacionActivity extends AppCompatActivity {
         paisEmpresa.setText ( preferences.getString("pais","") );
         tlfEmpresa.setText ( preferences.getString("tlf","") );
         emailEmpresa.setText ( preferences.getString("email","") );
+
+
 
     }
 }

@@ -21,6 +21,9 @@
         android:theme="@style/Theme.MyScanShop"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".RegistroActivity"
+            android:exported="false" />
+        <activity
             android:name=".HistorialActivity"
             android:exported="false" />
         <activity
