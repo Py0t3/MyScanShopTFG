@@ -7,8 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
+import es.ifp.myscanshopv1.R;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -17,8 +16,10 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import clases.Producto;
-import es.ifp.myscanshopv1.R;
 
+/**
+ * Adaptador propio para mostrar los productos en un GridView
+ */
 public class AdapterGrid extends ArrayAdapter {
     Context context;
     List<Producto> arrayProductos;

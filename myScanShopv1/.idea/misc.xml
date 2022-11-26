@@ -70,6 +70,12 @@
       </map>
     </option>
   </component>
+  <component name="JavadocGenerationManager">
+    <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/OneDrive/Escritorio/MSSJavaDoc" />
+    <option name="OPTION_SCOPE" value="private" />
+    <option name="OTHER_OPTIONS" value="-sourcepath C:\Users\hatto\AppData\Local\Android\Sdk\platforms\android-32\android.jar" />
+    <option name="OPTION_INCLUDE_LIBS" value="true" />
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

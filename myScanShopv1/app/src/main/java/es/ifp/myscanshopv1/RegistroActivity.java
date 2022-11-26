@@ -27,6 +27,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Actividad para realizar un nuevo registro de usuario en la tabla "usuarios" de la BDD
+ */
 public class RegistroActivity extends AppCompatActivity {
 
     protected EditText cajaNombre, cajaUser, cajaPassword, confirmaPass, cajaPuesto, cajaEmail;
@@ -35,7 +38,7 @@ public class RegistroActivity extends AppCompatActivity {
     protected Intent pasarPantalla;
 
 
-    protected String urlInsertarUsuario = "https://vaticinal-center.000webhostapp.com/insertarUsuario.php";
+    protected String urlInsertarUsuario = "https://vaticinal-center.000webhostapp.com/insertarUsuario.php";//Ubicación del archivo php
 
 
     @Override
@@ -62,6 +65,10 @@ public class RegistroActivity extends AppCompatActivity {
         } );
 
         botonEnviar.setOnClickListener ( new View.OnClickListener ( ) {
+            /**
+             * Conecta con la BDD para realizar un INSERT en la tabla "ususarios". Llama al archivo php ubicado en la variable "url"
+             * @param view
+             */
             @Override
             public void onClick ( View view ) {
 

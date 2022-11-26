@@ -5,18 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-import clases.Producto;
-import clases.Venta;
 import es.ifp.myscanshopv1.R;
+import clases.Venta;
 
+/**
+ * adaptador para mostrar la vista del historial de ventas
+ */
 public class AdaptadorHistorial extends BaseAdapter {
 
     private Context context;

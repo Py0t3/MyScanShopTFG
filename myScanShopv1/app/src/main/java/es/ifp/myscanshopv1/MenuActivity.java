@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Menu principal de la aplicacion
+ */
 public class MenuActivity extends AppCompatActivity {
 
     private Intent pasarPantalla;

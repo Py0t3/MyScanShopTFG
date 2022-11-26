@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import adaptadores.AdaptadorInventario;
 import clases.Producto;
 
+/**
+ * Realiza una consulta en la BDD y muestra el resultado
+ */
 public class BuscarActivity extends AppCompatActivity {
 
     private Intent pasarPantalla;
@@ -56,6 +59,13 @@ public class BuscarActivity extends AppCompatActivity {
 
 
         lista1.setOnItemClickListener ( new AdapterView.OnItemClickListener ( ) {
+            /**
+             * Selecciona un producto de la lista y envía el nombre del producto en un Intenet a la actividad anterior
+             * @param adapterView
+             * @param view
+             * @param i
+             * @param l
+             */
             @Override
             public void onItemClick ( AdapterView<?> adapterView , View view , int i , long l ) {
 
@@ -78,7 +88,10 @@ public class BuscarActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
-    //Botón Volver Inferior
+
+    /**
+     * Vuelve a la actividad anterior
+     */
     @Override
     public void onBackPressed () {
         super.onBackPressed ( );

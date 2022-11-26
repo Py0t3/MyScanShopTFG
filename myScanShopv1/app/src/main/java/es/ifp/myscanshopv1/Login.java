@@ -34,6 +34,9 @@ import java.util.Map;
 import clases.Producto;
 import clases.Usuario;
 
+/**
+ * Comprobación de login
+ */
 public class Login extends AppCompatActivity {
 
     protected EditText cajaUser, cajaPass;
@@ -69,6 +72,10 @@ public class Login extends AppCompatActivity {
         datosEmpresa = new String[8];
 
         botonEnter.setOnClickListener ( new View.OnClickListener ( ) {
+            /**
+             * Conexión con la BDD y realiza una consulta de tipo select con los datos parámetros capturados
+             * @param view
+             */
             @Override
             public void onClick ( View view ) {
 

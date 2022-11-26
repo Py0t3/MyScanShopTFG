@@ -6,12 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-
-import clases.Producto;
 import es.ifp.myscanshopv1.R;
+import clases.Producto;
 
+/**
+ * Adaptador para mostrar la vista del listview de CajaActivity
+ */
 public class AdaptadorCaja extends BaseAdapter {
 
     private Context context;

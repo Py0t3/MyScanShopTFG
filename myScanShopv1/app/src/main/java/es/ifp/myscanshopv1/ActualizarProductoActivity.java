@@ -29,6 +29,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import clases.Producto;
+/**
+ * Activity para actualizar datos de los productos
+ */
 
 public class ActualizarProductoActivity extends AppCompatActivity {
 
@@ -102,6 +105,10 @@ public class ActualizarProductoActivity extends AppCompatActivity {
             }
         } );
     }
+
+    /**
+     * Conecta con la BBDD y devuleve los datos del producto
+     */
     public  void seleccionarProducto(){
 
         StringRequest stringRequest = new StringRequest ( Request.Method.POST, urlInfo , new Response.Listener<String> ( ) {
@@ -174,6 +181,16 @@ public class ActualizarProductoActivity extends AppCompatActivity {
 
 
     }
+
+    /**
+     * Conecta con la BBDD y realiza un UPDATE del registro de la tabla "productos"
+     * @param id
+     * @param url_imagen
+     * @param nombre
+     * @param precio
+     * @param codigo_barras
+     * @param descripcion
+     */
     public void actualizarProducto(String id, String url_imagen, String nombre, String precio, String codigo_barras, String descripcion){
 
         StringRequest stringRequest = new StringRequest ( Request.Method.POST , urlActualizar , new Response.Listener<String> ( ) {
@@ -230,7 +247,10 @@ public class ActualizarProductoActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue ( this );
         requestQueue.add ( stringRequest );
     }
-    //Botón Volver Inferior
+
+    /**
+     * Vuelve a la actividad anterior
+     */
     @Override
     public void onBackPressed () {
         super.onBackPressed ( );

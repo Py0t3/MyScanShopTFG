@@ -1,15 +1,12 @@
 package es.ifp.myscanshopv1;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,15 +14,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import clases.Cliente;
+
+/**
+ * Activity para actualizar datos de los clientes
+ */
 
 public class ActualizarClienteActivity extends AppCompatActivity {
 
@@ -100,6 +98,10 @@ public class ActualizarClienteActivity extends AppCompatActivity {
 
 
     }
+
+    /**
+     * Conecta con la base de datos y devuelve los datos del cliente seleccionado
+     */
     public  void seleccionarCliente(){
 
         StringRequest stringRequest = new StringRequest ( Request.Method.POST, urlSeleccionarCliente , new Response.Listener<String> ( ) {
@@ -170,6 +172,15 @@ public class ActualizarClienteActivity extends AppCompatActivity {
         requestQueue.add ( stringRequest );
     }
 
+    /**
+     * Conecta con la base de datos para hacer un UPDATE de un registro de la tabla "clientes"
+     * @param id
+     * @param nombre
+     * @param email
+     * @param tlf
+     * @param direccion
+     * @param dni
+     */
     public void actualizarCliente(String id, String nombre, String email, String tlf, String direccion, String dni){
 
         StringRequest stringRequest = new StringRequest ( Request.Method.POST , urlActualizarCliente , new Response.Listener<String> ( ) {
@@ -229,6 +240,9 @@ public class ActualizarClienteActivity extends AppCompatActivity {
         requestQueue.add ( stringRequest );
     }
 
+    /**
+     * Conecta con la BBDD para borra un registro de la tabla "clientes"
+     */
     public void borrarCliente(){
         StringRequest stringRequest = new StringRequest ( Request.Method.POST , urlBorrarCliente , new Response.Listener<String> ( ) {
             @Override
@@ -281,7 +295,9 @@ public class ActualizarClienteActivity extends AppCompatActivity {
         requestQueue.add ( stringRequest );
     }
 
-    //Botón Volver Inferior
+    /**
+     * Vuelve a la actividad anterior y envía un paquete indicando de qué actividad se proviene
+     */
     @Override
     public void onBackPressed () {
         super.onBackPressed ( );

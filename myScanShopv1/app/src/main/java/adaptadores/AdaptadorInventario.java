@@ -7,14 +7,15 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import es.ifp.myscanshopv1.R;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 import clases.Producto;
-import es.ifp.myscanshopv1.R;
 
+/**
+ * Adpatador para mostrar la vista del inventario de productos
+ */
 public class AdaptadorInventario extends BaseAdapter {
 
     private Context context;

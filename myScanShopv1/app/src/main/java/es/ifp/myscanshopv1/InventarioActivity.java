@@ -31,6 +31,9 @@ import java.util.ArrayList;
 import adaptadores.AdaptadorInventario;
 import clases.Producto;
 
+/**
+ * Actividad que muestra todos los productos registrados y permite añadir nuevos registros
+ */
 public class InventarioActivity extends AppCompatActivity {
 
 
@@ -64,6 +67,10 @@ public class InventarioActivity extends AppCompatActivity {
 
 
         botonAdd.setOnClickListener ( new View.OnClickListener ( ) {
+            /**
+             * Abre la actividad AddProductoInventario
+             * @param view
+             */
             @Override
             public void onClick ( View view ) {
 
@@ -74,6 +81,13 @@ public class InventarioActivity extends AppCompatActivity {
         } );
 
         lista1.setOnItemClickListener ( new AdapterView.OnItemClickListener ( ) {
+            /**
+             *Abre la actividad InfoProductoActivity
+             * @param adapterView
+             * @param view
+             * @param position
+             * @param l
+             */
             @Override
             public void onItemClick ( AdapterView<?> adapterView , View view , int position , long l ) {
 
@@ -89,6 +103,10 @@ public class InventarioActivity extends AppCompatActivity {
 
         } );
     }
+
+    /**
+     * Conecta con la BDD y devuelve todos ls productos registrados
+     */
     public void listarProductos(){
 
         StringRequest stringRequest = new StringRequest ( Request.Method.GET, url , new Response.Listener<String> ( ) {

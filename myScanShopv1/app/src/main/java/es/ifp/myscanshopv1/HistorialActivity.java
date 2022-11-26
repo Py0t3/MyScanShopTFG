@@ -31,6 +31,9 @@ import adaptadores.AdaptadorHistorial;
 import clases.Producto;
 import clases.Venta;
 
+/**
+ * Muestra los datos almacenados en la tabla "ventas" de la BDD
+ */
 public class HistorialActivity extends AppCompatActivity {
 
     protected androidx.appcompat.widget.Toolbar toolbar;
@@ -97,6 +100,9 @@ public class HistorialActivity extends AppCompatActivity {
        finish ();
     }
 
+    /**
+     * Conecta con la base de datos para hacer un SELECT de todos los registros de la tabla "ventas"
+     */
     public void listarVentas(){
 
         StringRequest stringRequest = new StringRequest ( Request.Method.GET, urlMostrarVentas , new Response.Listener<String> ( ) {
@@ -145,9 +151,6 @@ public class HistorialActivity extends AppCompatActivity {
             }
         } );
 
-        /*
-         Estas dos línes son importante. Sin RequestQueue no hace nada
-         */
         RequestQueue requestQueue = Volley.newRequestQueue ( this );
         requestQueue.add ( stringRequest );
     }

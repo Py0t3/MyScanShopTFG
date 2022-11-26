@@ -62,6 +62,9 @@ import adaptadores.AdaptadorCaja;
 import clases.Cliente;
 import clases.Producto;
 
+/**
+ * Actividad de caja. Muestra todos los productos de la cesta
+ */
 public class CajaActivity extends AppCompatActivity {
 
     private Intent pasarPantalla;
@@ -139,9 +142,9 @@ public class CajaActivity extends AppCompatActivity {
         } );
 
 
-        /*
-        Boton para generar factura y finalizar proceso de venta. Inhabilitado hasta que no se
-        selecciona cliente
+        /**
+         * Botón para generar factura y finalizar proceso de venta. Inhabilitado hasta que no se
+         * selecciona cliente
          */
         botonFactura.setOnClickListener ( new View.OnClickListener ( ) {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -162,6 +165,9 @@ public class CajaActivity extends AppCompatActivity {
 
 
     }
+    /**
+     * Captura el precio de cada producto de la caja y devuelve un float con la suma total
+     */
     public static float calcularTotal(){
         totalEuros = 0.00f;
 
@@ -175,6 +181,10 @@ public class CajaActivity extends AppCompatActivity {
 
         return totalEuros;
     }
+
+    /**
+     * Genera documento PDF
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void generarPdf() {
         PdfDocument pdfDocument = new PdfDocument();
@@ -375,6 +385,9 @@ public class CajaActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Recupera los datos almacenados en la DatosFacturaciónActivity
+     */
     private void recuperarDatosFacturacion(){
 
         SharedPreferences preferences = getSharedPreferences ( "datosFacturacion", Context.MODE_PRIVATE );
@@ -389,6 +402,15 @@ public class CajaActivity extends AppCompatActivity {
         Login.datosEmpresa[7] = preferences.getString("email","")  ;
 
     }
+
+    /**
+     * Conecta con la BDD y realiza un INSERT en la tabla "ventas"
+     * @param id_vendedor
+     * @param id_cliente
+     * @param nombre_cliente
+     * @param factura
+     * @param facturaNombre
+     */
     public void registrarVenta( String id_vendedor, String id_cliente,String nombre_cliente , String factura, String facturaNombre) {
 
 
@@ -451,6 +473,10 @@ public class CajaActivity extends AppCompatActivity {
         requestQueue.add ( stringRequest );
 
     }
+
+    /**
+     * Conecta con la BDD para obtener el Id del último registro y así generar un Id de factura único
+     */
     public void obtenerIdVenta() {
 
         StringRequest stringRequest = new StringRequest ( Request.Method.GET , urlobtenerId , new Response.Listener<String> ( ) {
@@ -474,6 +500,9 @@ public class CajaActivity extends AppCompatActivity {
         requestQueue.add ( stringRequest );
     }
 
+    /**
+     * Abre un nuevo Intent con el gestor de correo electrónico por defecto del dispositivo
+     */
     private void enviarCorreo(){
 
         /*

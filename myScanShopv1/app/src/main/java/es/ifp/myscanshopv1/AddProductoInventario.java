@@ -43,6 +43,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Actividad para crear un nuevo registro en la tabla "productos"
+ */
 public class AddProductoInventario extends AppCompatActivity {
 
     protected ImageView imagen;
@@ -86,6 +89,10 @@ public class AddProductoInventario extends AppCompatActivity {
         imagen.setImageResource ( R.drawable.logoxl );
 
         botonImagen.setOnClickListener ( new View.OnClickListener ( ) {
+            /**
+             * seleciona una imagen para el producto
+             * @param view
+             */
             @Override
             public void onClick ( View view ) {
 
@@ -99,7 +106,9 @@ public class AddProductoInventario extends AppCompatActivity {
                 }
             }
         } );
-
+        /**
+         * Lllama a la función insertarProducto()
+         */
         botonGuardar.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick ( View view ) {
@@ -178,18 +187,29 @@ por lo que lo que cargará será una imagen de la galeria llamada con el método
         finish();
     }
 
-    //En APIs mas recientes de Android es obligatorio solicitar permiso para utilizar la camara
-    //Métodos para solicitar permiso
+    /**
+     * En APIs mas recientes de Android es obligatorio solicitar permiso para utilizar la camara
+     * métodos para solicitar permiso. Comprueba si el permiso está concedido
+     */
     private boolean checkPermission() {
         int permission1 = ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA);
 
         return permission1 == PackageManager.PERMISSION_GRANTED;
     }
 
+    /**
+     * Pide permiso para accder a la cámara
+     */
     private void requestPermissions() {
         ActivityCompat.requestPermissions(this, new String[]{CAMERA}, 200);
     }
 
+    /**
+     * Abre una nueva actividad con la cámara trasera del dispositivo
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @SuppressLint("MissingSuperCall")
     @Override
     public void onRequestPermissionsResult( int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -208,6 +228,16 @@ por lo que lo que cargará será una imagen de la galeria llamada con el método
             pasarPantalla = new Intent ( AddProductoInventario.this, AddProductoInventario.class );
         }
     }
+
+    /**
+     * Conecta con la BDD y inserta un nuevo registro en la tabla "productos"
+     * @param imagen
+     * @param url_imagen
+     * @param nombre
+     * @param precio
+     * @param codigo_barras
+     * @param descripcion
+     */
     public void insertarProducto(String imagen, String url_imagen, String nombre, String precio, String codigo_barras, String descripcion){
 
         StringRequest stringRequest = new StringRequest ( Request.Method.POST , url , new Response.Listener<String> ( ) {

@@ -28,7 +28,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import clases.Producto;
-
+/**
+ * Muestra la información del producto seleccionado
+ */
 public class InfoProductoActivity extends AppCompatActivity {
 
     protected ImageView imagen;
@@ -100,6 +102,10 @@ public class InfoProductoActivity extends AppCompatActivity {
         } );
 
     }
+
+    /**
+     * Conecta con la BDD y devuelve la informacion del registro de la tabla "productos"
+     */
     public  void seleccionarProducto(){
 
         StringRequest stringRequest = new StringRequest ( Request.Method.POST, url , new Response.Listener<String> ( ) {
@@ -173,6 +179,10 @@ public class InfoProductoActivity extends AppCompatActivity {
 
 
     }
+
+    /**
+     * Conecta con la BDD y realiza un DELETE del registro de la tabla "productos"
+     */
     private void eliminarPriducto(){
 
         StringRequest stringRequest = new StringRequest ( Request.Method.POST, urlEliminar , new Response.Listener<String> ( ) {

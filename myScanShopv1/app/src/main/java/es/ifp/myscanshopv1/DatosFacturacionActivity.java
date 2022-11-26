@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * Recoge datos de facturación que se mostraran en el documento PDF generado en la CajaActivity
+ */
 public class DatosFacturacionActivity extends AppCompatActivity {
 
     protected Intent pasarPantalla;
@@ -107,6 +110,10 @@ public class DatosFacturacionActivity extends AppCompatActivity {
         } );
 
         botonBorrar.setOnClickListener ( new View.OnClickListener ( ) {
+            /**
+             * se borran todos los datos
+             * @param view
+             */
             @Override
             public void onClick ( View view ) {
 
@@ -137,6 +144,10 @@ public class DatosFacturacionActivity extends AppCompatActivity {
         startActivity(pasarPantalla);
         finish();
     }
+
+    /**
+     * Guarda los datos
+     */
     private void guardarPreferencias(){
 
         SharedPreferences preferences = getSharedPreferences ( "datosFacturacion", Context.MODE_PRIVATE );
@@ -152,6 +163,10 @@ public class DatosFacturacionActivity extends AppCompatActivity {
         editor.putBoolean ( "sesion", true );
         editor.commit ();
     }
+
+    /**
+     * recupera los datos
+     */
     private void recuperarPreferencias(){
 
         SharedPreferences preferences = getSharedPreferences ( "datosFacturacion", Context.MODE_PRIVATE );

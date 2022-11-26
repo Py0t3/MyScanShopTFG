@@ -13,6 +13,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import clases.Producto;
 
+/**
+ * Actividad para añadir productos manualmente a la cesta
+ */
 public class AddManualActivity extends AppCompatActivity {
 
 
@@ -45,7 +48,9 @@ public class AddManualActivity extends AppCompatActivity {
         cajaDescripcion = (EditText ) findViewById ( R.id.cajaDescripcion_actualizar );
 
         botonAdd  =(Button )findViewById ( R.id.botonGuardar_actualizar );
-
+/**
+ * Crea un objeto producto y los pasa en un paquete a la actividad anterior
+ */
         botonAdd.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick ( View view ) {
@@ -72,13 +77,19 @@ public class AddManualActivity extends AppCompatActivity {
     }
 
 
-    //Botón Volver Superior
+    /**
+     * Llama a onBackPressed
+     * @return
+     */
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
-    //Botón Volver Inferior
+
+    /**
+     * Vuelve a la actividad anterior
+     */
     @Override
     public void onBackPressed () {
         super.onBackPressed ( );

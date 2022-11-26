@@ -41,6 +41,9 @@ import adaptadores.AdapterGrid;
 import clases.Producto;
 import clases.Usuario;
 
+/**
+ * Actividad principal de la aplicacion
+ */
 public class MainActivity extends AppCompatActivity {
 
     protected Toolbar toolbar;
@@ -105,17 +108,31 @@ public class MainActivity extends AppCompatActivity {
 
         //Selección de producto desde la lista
         grid.setOnItemClickListener ( new AdapterView.OnItemClickListener ( ) {
+            /**
+             * Creacion de objeto producto y consulta de sus datos. Abre un cuadro de dialogo
+             * @param adapterView
+             * @param view
+             * @param i
+             * @param l
+             */
             @Override
             public void onItemClick ( AdapterView<?> adapterView , View view , int i , long l ) {
 
+                //se obtiene el objeto
                 Producto p= ( Producto ) adapterView.getItemAtPosition ( i );
                 AlertDialog.Builder builder= new AlertDialog.Builder ( MainActivity.this );
                 builder.setTitle ( p.getNombre ());
                 builder.setMessage ( "P.V.P: " + p.getPrecio () + " EUROS\nDescripcion: \n" + p.getDescripcion () );
                 builder.setPositiveButton ( "AÑADIR A LA CESTA" , new DialogInterface.OnClickListener ( ) {
+                    /**
+                     * anyade producto a arraylist de caja
+                     * @param dialogInterface
+                     * @param i
+                     */
                     @Override
                     public void onClick ( DialogInterface dialogInterface , int i ) {
 
+                        //se añade a la lista de caja
                         cajaArrayList.add ( p );
                         botonCaja.setText ( "TOTAL: " + CajaActivity.calcularTotal () + " EUROS" );
                     }
@@ -124,16 +141,14 @@ public class MainActivity extends AppCompatActivity {
                 builder.setNeutralButton ( "Cancelar", null );
                 AlertDialog dialog= builder.create();
                 builder.show();
-
-
             }
 
 
         } );
 
-       /*
-       Acción de la barra de búsqueda SearchView. Llama al método buscarProducto. Se pone a la escucha
-       y se activa el método onQueryTextChange para que ejecute cada vez que se cambia una letra del texto en la barra.
+       /**
+       *Acción de la barra de búsqueda SearchView. Llama al método buscarProducto. Se pone a la escucha
+       *y se activa el método onQueryTextChange para que ejecute cada vez que se cambia una letra del texto en la barra.
         */
         searchBar.setOnQueryTextListener ( new SearchView.OnQueryTextListener ( ) {
             @Override
@@ -192,11 +207,18 @@ public class MainActivity extends AppCompatActivity {
         dialogoAlertaSalir ();
         return true;
     }
-    //Botón Volver Inferior
+
+    /**
+     * Llama a la funcion dialogoAlertaSalir()
+     */
     @Override
     public void onBackPressed () {
         dialogoAlertaSalir ();
     }
+
+    /**
+     * Muestra cuadro dialogo para confirmar la vuelta a la actividad anterior. Vacia el arraylist de caja
+     */
     public void dialogoAlertaSalir(){
 
         AlertDialog.Builder builder= new AlertDialog.Builder ( MainActivity.this );
@@ -217,7 +239,9 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
-
+    /**
+     * Muestra todos los productos registrados
+     */
     public void listarProductos(){
 
         StringRequest stringRequest = new StringRequest ( Request.Method.GET, url , new Response.Listener<String> ( ) {
@@ -273,6 +297,10 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add ( stringRequest );
     }
 
+    /**
+     * Realiza una conexion con la BDD y cosnsulta datos del producto
+     * @param busqueda
+     */
     private  void buscarProducto(String busqueda){
 
         StringRequest stringRequest = new StringRequest ( Request.Method.POST , urlBuscarProducto , new Response.Listener<String> ( ) {
@@ -339,6 +367,11 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add ( stringRequest );
 
     }
+
+    /**
+     * REaliza consulta a la base de datos sobre el codigo de barras leido
+     * @param codigo
+     */
     public  void leerCodigo(String codigo){
 
         StringRequest stringRequest = new StringRequest ( Request.Method.POST, urlCodigoBarras , new Response.Listener<String> ( ) {

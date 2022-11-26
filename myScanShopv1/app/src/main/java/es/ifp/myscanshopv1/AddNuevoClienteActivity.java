@@ -24,6 +24,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Actividad para añadir registro a la tabla "clientes"
+ */
 public class AddNuevoClienteActivity extends AppCompatActivity {
 
     protected EditText nombreET, emailET, telefonoET, direccionET, dniET;
@@ -51,7 +54,9 @@ public class AddNuevoClienteActivity extends AppCompatActivity {
 
             activityOrigen = paquete.getString ( "Activity" );
         }
-
+        /**
+        * vuelve a la actividad anterior
+        */
         botonCancelar.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick ( View view ) {
@@ -62,7 +67,9 @@ public class AddNuevoClienteActivity extends AppCompatActivity {
                 finish ();
             }
         } );
-
+        /**
+         * Conecta con la BDD y crea un nuevo registro en la tabla "clientes"
+         */
         botonGuardar.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick ( View view ) {

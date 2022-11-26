@@ -35,6 +35,9 @@ import adaptadores.AdaptadorClientes;
 import clases.Cliente;
 import clases.Producto;
 
+/**
+ * Muestra los datos de un cliente
+ */
 public class SeleccionarClienteActivity extends AppCompatActivity {
 
     protected ListView lista;

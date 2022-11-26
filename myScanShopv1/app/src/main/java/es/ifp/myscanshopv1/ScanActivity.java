@@ -31,6 +31,9 @@ import java.util.Map;
 
 import clases.Producto;
 
+/**
+ * Actividad que abre un Intent de la camara para escanear codigos de barra
+ */
 public class ScanActivity extends AppCompatActivity {
     private static String codigoLeido="";
     protected Intent pasarPantalla;
@@ -62,10 +65,10 @@ public class ScanActivity extends AppCompatActivity {
                 startActivity(pasarPantalla);
                 finish();
 
-
             }
             else
             {
+                //envio de datos a la actividad anterior
                 pasarPantalla = new Intent ( ScanActivity.this, MainActivity.class);
                 pasarPantalla.putExtra ( "codigo", codigoLeido );
                 startActivity(pasarPantalla);
